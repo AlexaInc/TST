@@ -45,6 +45,19 @@ typedef enum {
 // 3. Global Feature Toggles (Features On/Off කරන Flags)
 // ==============================================================================
 typedef struct {
+    // Overlay / menu
+    int  menuKey;                // Hotkey that toggles the menu (default VK_INSERT)
+    bool bDebugMarker;           // kept for compatibility (see diagMode)
+    int  diagMode;               // 0 = off, 1 = magenta marker quad,
+                                 // 2 = clear whole frame magenta (proves which
+                                 //     surface we are drawing into). F10 cycles.
+    float fMouseSensitivity;     // virtual cursor: raw mouse counts -> client px
+                                 // 1.0 = 1:1. Lower it if the cursor races.
+    bool bOverlayUseBoundFBO;    // true  = draw into whatever framebuffer the
+                                 //         emulator had bound at swap time
+                                 //         (this is what ReShade does)
+                                 // false = force the window backbuffer (FBO 0)
+
     // Master Chams Switch
     bool bVisibilityChams;       // DAT_1803afe7a: Chams ප්‍රධාන Switch එක
 

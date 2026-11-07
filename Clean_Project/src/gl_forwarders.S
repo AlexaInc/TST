@@ -1,2873 +1,12484 @@
-/* gl_forwarders.S - Auto-generated naked jmp stubs (x86-64 Windows) */
-/* [English] Each function loads its pointer and jumps to real opengl32.dll */
+/* gl_forwarders.S - GL/WGL forwarder stubs (x86-64 Windows)
+ *
+ * [English] Each stub does a tail-jump to the genuine System32\opengl32.dll
+ *           entry point. If the pointer is not bound yet it calls
+ *           GL_LazyBind(slot, name) first, preserving *all* Win64 argument
+ *           registers (rcx/rdx/r8/r9 + xmm0-3) across that call.
+ *           Consequence: GL works correctly even if our DllMain never
+ *           had a chance to initialise anything (loader-lock safe).
+ *
+ * [සිංහල] සෑම stub එකක්ම සැබෑ System32 function එකට tail-jump කරනවා.
+ *         pointer එක තාම bind වෙලා නැත්නම් GL_LazyBind() call කරනවා.
+ */
 .intel_syntax noprefix
 
+.text
+
     .global glAccum
-    glAccum :
-        mov rax, QWORD PTR [rip + _pfn_glAccum]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glAccum:
+    mov rax, QWORD PTR [rip + _pfn_glAccum]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glAccum]
+    lea rdx, [rip + _name_glAccum]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glAlphaFunc
-    glAlphaFunc :
-        mov rax, QWORD PTR [rip + _pfn_glAlphaFunc]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glAlphaFunc:
+    mov rax, QWORD PTR [rip + _pfn_glAlphaFunc]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glAlphaFunc]
+    lea rdx, [rip + _name_glAlphaFunc]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glAreTexturesResident
-    glAreTexturesResident :
-        mov rax, QWORD PTR [rip + _pfn_glAreTexturesResident]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glAreTexturesResident:
+    mov rax, QWORD PTR [rip + _pfn_glAreTexturesResident]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glAreTexturesResident]
+    lea rdx, [rip + _name_glAreTexturesResident]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glArrayElement
-    glArrayElement :
-        mov rax, QWORD PTR [rip + _pfn_glArrayElement]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glArrayElement:
+    mov rax, QWORD PTR [rip + _pfn_glArrayElement]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glArrayElement]
+    lea rdx, [rip + _name_glArrayElement]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glBegin
-    glBegin :
-        mov rax, QWORD PTR [rip + _pfn_glBegin]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glBegin:
+    mov rax, QWORD PTR [rip + _pfn_glBegin]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glBegin]
+    lea rdx, [rip + _name_glBegin]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glBindTexture
-    glBindTexture :
-        mov rax, QWORD PTR [rip + _pfn_glBindTexture]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glBindTexture:
+    mov rax, QWORD PTR [rip + _pfn_glBindTexture]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glBindTexture]
+    lea rdx, [rip + _name_glBindTexture]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glBitmap
-    glBitmap :
-        mov rax, QWORD PTR [rip + _pfn_glBitmap]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glBitmap:
+    mov rax, QWORD PTR [rip + _pfn_glBitmap]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glBitmap]
+    lea rdx, [rip + _name_glBitmap]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glBlendFunc
-    glBlendFunc :
-        mov rax, QWORD PTR [rip + _pfn_glBlendFunc]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glBlendFunc:
+    mov rax, QWORD PTR [rip + _pfn_glBlendFunc]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glBlendFunc]
+    lea rdx, [rip + _name_glBlendFunc]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCallList
-    glCallList :
-        mov rax, QWORD PTR [rip + _pfn_glCallList]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCallList:
+    mov rax, QWORD PTR [rip + _pfn_glCallList]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCallList]
+    lea rdx, [rip + _name_glCallList]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCallLists
-    glCallLists :
-        mov rax, QWORD PTR [rip + _pfn_glCallLists]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCallLists:
+    mov rax, QWORD PTR [rip + _pfn_glCallLists]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCallLists]
+    lea rdx, [rip + _name_glCallLists]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClear
-    glClear :
-        mov rax, QWORD PTR [rip + _pfn_glClear]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClear:
+    mov rax, QWORD PTR [rip + _pfn_glClear]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClear]
+    lea rdx, [rip + _name_glClear]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClearAccum
-    glClearAccum :
-        mov rax, QWORD PTR [rip + _pfn_glClearAccum]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClearAccum:
+    mov rax, QWORD PTR [rip + _pfn_glClearAccum]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClearAccum]
+    lea rdx, [rip + _name_glClearAccum]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClearColor
-    glClearColor :
-        mov rax, QWORD PTR [rip + _pfn_glClearColor]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClearColor:
+    mov rax, QWORD PTR [rip + _pfn_glClearColor]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClearColor]
+    lea rdx, [rip + _name_glClearColor]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClearDepth
-    glClearDepth :
-        mov rax, QWORD PTR [rip + _pfn_glClearDepth]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClearDepth:
+    mov rax, QWORD PTR [rip + _pfn_glClearDepth]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClearDepth]
+    lea rdx, [rip + _name_glClearDepth]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClearIndex
-    glClearIndex :
-        mov rax, QWORD PTR [rip + _pfn_glClearIndex]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClearIndex:
+    mov rax, QWORD PTR [rip + _pfn_glClearIndex]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClearIndex]
+    lea rdx, [rip + _name_glClearIndex]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClearStencil
-    glClearStencil :
-        mov rax, QWORD PTR [rip + _pfn_glClearStencil]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClearStencil:
+    mov rax, QWORD PTR [rip + _pfn_glClearStencil]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClearStencil]
+    lea rdx, [rip + _name_glClearStencil]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glClipPlane
-    glClipPlane :
-        mov rax, QWORD PTR [rip + _pfn_glClipPlane]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glClipPlane:
+    mov rax, QWORD PTR [rip + _pfn_glClipPlane]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glClipPlane]
+    lea rdx, [rip + _name_glClipPlane]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3b
-    glColor3b :
-        mov rax, QWORD PTR [rip + _pfn_glColor3b]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3b:
+    mov rax, QWORD PTR [rip + _pfn_glColor3b]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3b]
+    lea rdx, [rip + _name_glColor3b]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3bv
-    glColor3bv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3bv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3bv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3bv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3bv]
+    lea rdx, [rip + _name_glColor3bv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3d
-    glColor3d :
-        mov rax, QWORD PTR [rip + _pfn_glColor3d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3d:
+    mov rax, QWORD PTR [rip + _pfn_glColor3d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3d]
+    lea rdx, [rip + _name_glColor3d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3dv
-    glColor3dv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3dv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3dv]
+    lea rdx, [rip + _name_glColor3dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3f
-    glColor3f :
-        mov rax, QWORD PTR [rip + _pfn_glColor3f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3f:
+    mov rax, QWORD PTR [rip + _pfn_glColor3f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3f]
+    lea rdx, [rip + _name_glColor3f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3fv
-    glColor3fv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3fv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3fv]
+    lea rdx, [rip + _name_glColor3fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3i
-    glColor3i :
-        mov rax, QWORD PTR [rip + _pfn_glColor3i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3i:
+    mov rax, QWORD PTR [rip + _pfn_glColor3i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3i]
+    lea rdx, [rip + _name_glColor3i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3iv
-    glColor3iv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3iv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3iv]
+    lea rdx, [rip + _name_glColor3iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3s
-    glColor3s :
-        mov rax, QWORD PTR [rip + _pfn_glColor3s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3s:
+    mov rax, QWORD PTR [rip + _pfn_glColor3s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3s]
+    lea rdx, [rip + _name_glColor3s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3sv
-    glColor3sv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3sv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3sv]
+    lea rdx, [rip + _name_glColor3sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3ub
-    glColor3ub :
-        mov rax, QWORD PTR [rip + _pfn_glColor3ub]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3ub:
+    mov rax, QWORD PTR [rip + _pfn_glColor3ub]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3ub]
+    lea rdx, [rip + _name_glColor3ub]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3ubv
-    glColor3ubv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3ubv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3ubv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3ubv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3ubv]
+    lea rdx, [rip + _name_glColor3ubv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3ui
-    glColor3ui :
-        mov rax, QWORD PTR [rip + _pfn_glColor3ui]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3ui:
+    mov rax, QWORD PTR [rip + _pfn_glColor3ui]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3ui]
+    lea rdx, [rip + _name_glColor3ui]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3uiv
-    glColor3uiv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3uiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3uiv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3uiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3uiv]
+    lea rdx, [rip + _name_glColor3uiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3us
-    glColor3us :
-        mov rax, QWORD PTR [rip + _pfn_glColor3us]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3us:
+    mov rax, QWORD PTR [rip + _pfn_glColor3us]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3us]
+    lea rdx, [rip + _name_glColor3us]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor3usv
-    glColor3usv :
-        mov rax, QWORD PTR [rip + _pfn_glColor3usv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor3usv:
+    mov rax, QWORD PTR [rip + _pfn_glColor3usv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor3usv]
+    lea rdx, [rip + _name_glColor3usv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4b
-    glColor4b :
-        mov rax, QWORD PTR [rip + _pfn_glColor4b]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4b:
+    mov rax, QWORD PTR [rip + _pfn_glColor4b]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4b]
+    lea rdx, [rip + _name_glColor4b]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4bv
-    glColor4bv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4bv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4bv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4bv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4bv]
+    lea rdx, [rip + _name_glColor4bv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4d
-    glColor4d :
-        mov rax, QWORD PTR [rip + _pfn_glColor4d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4d:
+    mov rax, QWORD PTR [rip + _pfn_glColor4d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4d]
+    lea rdx, [rip + _name_glColor4d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4dv
-    glColor4dv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4dv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4dv]
+    lea rdx, [rip + _name_glColor4dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4f
-    glColor4f :
-        mov rax, QWORD PTR [rip + _pfn_glColor4f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4f:
+    mov rax, QWORD PTR [rip + _pfn_glColor4f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4f]
+    lea rdx, [rip + _name_glColor4f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4fv
-    glColor4fv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4fv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4fv]
+    lea rdx, [rip + _name_glColor4fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4i
-    glColor4i :
-        mov rax, QWORD PTR [rip + _pfn_glColor4i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4i:
+    mov rax, QWORD PTR [rip + _pfn_glColor4i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4i]
+    lea rdx, [rip + _name_glColor4i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4iv
-    glColor4iv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4iv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4iv]
+    lea rdx, [rip + _name_glColor4iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4s
-    glColor4s :
-        mov rax, QWORD PTR [rip + _pfn_glColor4s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4s:
+    mov rax, QWORD PTR [rip + _pfn_glColor4s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4s]
+    lea rdx, [rip + _name_glColor4s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4sv
-    glColor4sv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4sv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4sv]
+    lea rdx, [rip + _name_glColor4sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4ub
-    glColor4ub :
-        mov rax, QWORD PTR [rip + _pfn_glColor4ub]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4ub:
+    mov rax, QWORD PTR [rip + _pfn_glColor4ub]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4ub]
+    lea rdx, [rip + _name_glColor4ub]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4ubv
-    glColor4ubv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4ubv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4ubv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4ubv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4ubv]
+    lea rdx, [rip + _name_glColor4ubv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4ui
-    glColor4ui :
-        mov rax, QWORD PTR [rip + _pfn_glColor4ui]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4ui:
+    mov rax, QWORD PTR [rip + _pfn_glColor4ui]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4ui]
+    lea rdx, [rip + _name_glColor4ui]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4uiv
-    glColor4uiv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4uiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4uiv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4uiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4uiv]
+    lea rdx, [rip + _name_glColor4uiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4us
-    glColor4us :
-        mov rax, QWORD PTR [rip + _pfn_glColor4us]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4us:
+    mov rax, QWORD PTR [rip + _pfn_glColor4us]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4us]
+    lea rdx, [rip + _name_glColor4us]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColor4usv
-    glColor4usv :
-        mov rax, QWORD PTR [rip + _pfn_glColor4usv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColor4usv:
+    mov rax, QWORD PTR [rip + _pfn_glColor4usv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColor4usv]
+    lea rdx, [rip + _name_glColor4usv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColorMask
-    glColorMask :
-        mov rax, QWORD PTR [rip + _pfn_glColorMask]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColorMask:
+    mov rax, QWORD PTR [rip + _pfn_glColorMask]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColorMask]
+    lea rdx, [rip + _name_glColorMask]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColorMaterial
-    glColorMaterial :
-        mov rax, QWORD PTR [rip + _pfn_glColorMaterial]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColorMaterial:
+    mov rax, QWORD PTR [rip + _pfn_glColorMaterial]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColorMaterial]
+    lea rdx, [rip + _name_glColorMaterial]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glColorPointer
-    glColorPointer :
-        mov rax, QWORD PTR [rip + _pfn_glColorPointer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glColorPointer:
+    mov rax, QWORD PTR [rip + _pfn_glColorPointer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glColorPointer]
+    lea rdx, [rip + _name_glColorPointer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCopyPixels
-    glCopyPixels :
-        mov rax, QWORD PTR [rip + _pfn_glCopyPixels]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCopyPixels:
+    mov rax, QWORD PTR [rip + _pfn_glCopyPixels]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCopyPixels]
+    lea rdx, [rip + _name_glCopyPixels]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCopyTexImage1D
-    glCopyTexImage1D :
-        mov rax, QWORD PTR [rip + _pfn_glCopyTexImage1D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCopyTexImage1D:
+    mov rax, QWORD PTR [rip + _pfn_glCopyTexImage1D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCopyTexImage1D]
+    lea rdx, [rip + _name_glCopyTexImage1D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCopyTexImage2D
-    glCopyTexImage2D :
-        mov rax, QWORD PTR [rip + _pfn_glCopyTexImage2D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCopyTexImage2D:
+    mov rax, QWORD PTR [rip + _pfn_glCopyTexImage2D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCopyTexImage2D]
+    lea rdx, [rip + _name_glCopyTexImage2D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCopyTexSubImage1D
-    glCopyTexSubImage1D :
-        mov rax, QWORD PTR [rip + _pfn_glCopyTexSubImage1D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCopyTexSubImage1D:
+    mov rax, QWORD PTR [rip + _pfn_glCopyTexSubImage1D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCopyTexSubImage1D]
+    lea rdx, [rip + _name_glCopyTexSubImage1D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCopyTexSubImage2D
-    glCopyTexSubImage2D :
-        mov rax, QWORD PTR [rip + _pfn_glCopyTexSubImage2D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCopyTexSubImage2D:
+    mov rax, QWORD PTR [rip + _pfn_glCopyTexSubImage2D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCopyTexSubImage2D]
+    lea rdx, [rip + _name_glCopyTexSubImage2D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glCullFace
-    glCullFace :
-        mov rax, QWORD PTR [rip + _pfn_glCullFace]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glCullFace:
+    mov rax, QWORD PTR [rip + _pfn_glCullFace]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glCullFace]
+    lea rdx, [rip + _name_glCullFace]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDeleteLists
-    glDeleteLists :
-        mov rax, QWORD PTR [rip + _pfn_glDeleteLists]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDeleteLists:
+    mov rax, QWORD PTR [rip + _pfn_glDeleteLists]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDeleteLists]
+    lea rdx, [rip + _name_glDeleteLists]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDeleteTextures
-    glDeleteTextures :
-        mov rax, QWORD PTR [rip + _pfn_glDeleteTextures]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDeleteTextures:
+    mov rax, QWORD PTR [rip + _pfn_glDeleteTextures]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDeleteTextures]
+    lea rdx, [rip + _name_glDeleteTextures]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDepthFunc
-    glDepthFunc :
-        mov rax, QWORD PTR [rip + _pfn_glDepthFunc]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDepthFunc:
+    mov rax, QWORD PTR [rip + _pfn_glDepthFunc]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDepthFunc]
+    lea rdx, [rip + _name_glDepthFunc]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDepthMask
-    glDepthMask :
-        mov rax, QWORD PTR [rip + _pfn_glDepthMask]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDepthMask:
+    mov rax, QWORD PTR [rip + _pfn_glDepthMask]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDepthMask]
+    lea rdx, [rip + _name_glDepthMask]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDepthRange
-    glDepthRange :
-        mov rax, QWORD PTR [rip + _pfn_glDepthRange]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDepthRange:
+    mov rax, QWORD PTR [rip + _pfn_glDepthRange]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDepthRange]
+    lea rdx, [rip + _name_glDepthRange]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDisable
-    glDisable :
-        mov rax, QWORD PTR [rip + _pfn_glDisable]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDisable:
+    mov rax, QWORD PTR [rip + _pfn_glDisable]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDisable]
+    lea rdx, [rip + _name_glDisable]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDisableClientState
-    glDisableClientState :
-        mov rax, QWORD PTR [rip + _pfn_glDisableClientState]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDisableClientState:
+    mov rax, QWORD PTR [rip + _pfn_glDisableClientState]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDisableClientState]
+    lea rdx, [rip + _name_glDisableClientState]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDrawArrays
-    glDrawArrays :
-        mov rax, QWORD PTR [rip + _pfn_glDrawArrays]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDrawArrays:
+    mov rax, QWORD PTR [rip + _pfn_glDrawArrays]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDrawArrays]
+    lea rdx, [rip + _name_glDrawArrays]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDrawBuffer
-    glDrawBuffer :
-        mov rax, QWORD PTR [rip + _pfn_glDrawBuffer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDrawBuffer:
+    mov rax, QWORD PTR [rip + _pfn_glDrawBuffer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDrawBuffer]
+    lea rdx, [rip + _name_glDrawBuffer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glDrawPixels
-    glDrawPixels :
-        mov rax, QWORD PTR [rip + _pfn_glDrawPixels]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glDrawPixels:
+    mov rax, QWORD PTR [rip + _pfn_glDrawPixels]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glDrawPixels]
+    lea rdx, [rip + _name_glDrawPixels]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEdgeFlag
-    glEdgeFlag :
-        mov rax, QWORD PTR [rip + _pfn_glEdgeFlag]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEdgeFlag:
+    mov rax, QWORD PTR [rip + _pfn_glEdgeFlag]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEdgeFlag]
+    lea rdx, [rip + _name_glEdgeFlag]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEdgeFlagPointer
-    glEdgeFlagPointer :
-        mov rax, QWORD PTR [rip + _pfn_glEdgeFlagPointer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEdgeFlagPointer:
+    mov rax, QWORD PTR [rip + _pfn_glEdgeFlagPointer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEdgeFlagPointer]
+    lea rdx, [rip + _name_glEdgeFlagPointer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEdgeFlagv
-    glEdgeFlagv :
-        mov rax, QWORD PTR [rip + _pfn_glEdgeFlagv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEdgeFlagv:
+    mov rax, QWORD PTR [rip + _pfn_glEdgeFlagv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEdgeFlagv]
+    lea rdx, [rip + _name_glEdgeFlagv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEnable
-    glEnable :
-        mov rax, QWORD PTR [rip + _pfn_glEnable]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEnable:
+    mov rax, QWORD PTR [rip + _pfn_glEnable]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEnable]
+    lea rdx, [rip + _name_glEnable]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEnableClientState
-    glEnableClientState :
-        mov rax, QWORD PTR [rip + _pfn_glEnableClientState]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEnableClientState:
+    mov rax, QWORD PTR [rip + _pfn_glEnableClientState]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEnableClientState]
+    lea rdx, [rip + _name_glEnableClientState]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEnd
-    glEnd :
-        mov rax, QWORD PTR [rip + _pfn_glEnd]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEnd:
+    mov rax, QWORD PTR [rip + _pfn_glEnd]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEnd]
+    lea rdx, [rip + _name_glEnd]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEndList
-    glEndList :
-        mov rax, QWORD PTR [rip + _pfn_glEndList]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEndList:
+    mov rax, QWORD PTR [rip + _pfn_glEndList]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEndList]
+    lea rdx, [rip + _name_glEndList]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord1d
-    glEvalCoord1d :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord1d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord1d:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord1d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord1d]
+    lea rdx, [rip + _name_glEvalCoord1d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord1dv
-    glEvalCoord1dv :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord1dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord1dv:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord1dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord1dv]
+    lea rdx, [rip + _name_glEvalCoord1dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord1f
-    glEvalCoord1f :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord1f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord1f:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord1f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord1f]
+    lea rdx, [rip + _name_glEvalCoord1f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord1fv
-    glEvalCoord1fv :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord1fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord1fv:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord1fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord1fv]
+    lea rdx, [rip + _name_glEvalCoord1fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord2d
-    glEvalCoord2d :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord2d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord2d:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord2d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord2d]
+    lea rdx, [rip + _name_glEvalCoord2d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord2dv
-    glEvalCoord2dv :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord2dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord2dv:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord2dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord2dv]
+    lea rdx, [rip + _name_glEvalCoord2dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord2f
-    glEvalCoord2f :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord2f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord2f:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord2f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord2f]
+    lea rdx, [rip + _name_glEvalCoord2f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalCoord2fv
-    glEvalCoord2fv :
-        mov rax, QWORD PTR [rip + _pfn_glEvalCoord2fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalCoord2fv:
+    mov rax, QWORD PTR [rip + _pfn_glEvalCoord2fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalCoord2fv]
+    lea rdx, [rip + _name_glEvalCoord2fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalMesh1
-    glEvalMesh1 :
-        mov rax, QWORD PTR [rip + _pfn_glEvalMesh1]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalMesh1:
+    mov rax, QWORD PTR [rip + _pfn_glEvalMesh1]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalMesh1]
+    lea rdx, [rip + _name_glEvalMesh1]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalMesh2
-    glEvalMesh2 :
-        mov rax, QWORD PTR [rip + _pfn_glEvalMesh2]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalMesh2:
+    mov rax, QWORD PTR [rip + _pfn_glEvalMesh2]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalMesh2]
+    lea rdx, [rip + _name_glEvalMesh2]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalPoint1
-    glEvalPoint1 :
-        mov rax, QWORD PTR [rip + _pfn_glEvalPoint1]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalPoint1:
+    mov rax, QWORD PTR [rip + _pfn_glEvalPoint1]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalPoint1]
+    lea rdx, [rip + _name_glEvalPoint1]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glEvalPoint2
-    glEvalPoint2 :
-        mov rax, QWORD PTR [rip + _pfn_glEvalPoint2]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glEvalPoint2:
+    mov rax, QWORD PTR [rip + _pfn_glEvalPoint2]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glEvalPoint2]
+    lea rdx, [rip + _name_glEvalPoint2]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFeedbackBuffer
-    glFeedbackBuffer :
-        mov rax, QWORD PTR [rip + _pfn_glFeedbackBuffer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFeedbackBuffer:
+    mov rax, QWORD PTR [rip + _pfn_glFeedbackBuffer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFeedbackBuffer]
+    lea rdx, [rip + _name_glFeedbackBuffer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFinish
-    glFinish :
-        mov rax, QWORD PTR [rip + _pfn_glFinish]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFinish:
+    mov rax, QWORD PTR [rip + _pfn_glFinish]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFinish]
+    lea rdx, [rip + _name_glFinish]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFlush
-    glFlush :
-        mov rax, QWORD PTR [rip + _pfn_glFlush]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFlush:
+    mov rax, QWORD PTR [rip + _pfn_glFlush]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFlush]
+    lea rdx, [rip + _name_glFlush]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFogf
-    glFogf :
-        mov rax, QWORD PTR [rip + _pfn_glFogf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFogf:
+    mov rax, QWORD PTR [rip + _pfn_glFogf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFogf]
+    lea rdx, [rip + _name_glFogf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFogfv
-    glFogfv :
-        mov rax, QWORD PTR [rip + _pfn_glFogfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFogfv:
+    mov rax, QWORD PTR [rip + _pfn_glFogfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFogfv]
+    lea rdx, [rip + _name_glFogfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFogi
-    glFogi :
-        mov rax, QWORD PTR [rip + _pfn_glFogi]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFogi:
+    mov rax, QWORD PTR [rip + _pfn_glFogi]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFogi]
+    lea rdx, [rip + _name_glFogi]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFogiv
-    glFogiv :
-        mov rax, QWORD PTR [rip + _pfn_glFogiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFogiv:
+    mov rax, QWORD PTR [rip + _pfn_glFogiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFogiv]
+    lea rdx, [rip + _name_glFogiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFrontFace
-    glFrontFace :
-        mov rax, QWORD PTR [rip + _pfn_glFrontFace]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFrontFace:
+    mov rax, QWORD PTR [rip + _pfn_glFrontFace]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFrontFace]
+    lea rdx, [rip + _name_glFrontFace]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glFrustum
-    glFrustum :
-        mov rax, QWORD PTR [rip + _pfn_glFrustum]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glFrustum:
+    mov rax, QWORD PTR [rip + _pfn_glFrustum]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glFrustum]
+    lea rdx, [rip + _name_glFrustum]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGenLists
-    glGenLists :
-        mov rax, QWORD PTR [rip + _pfn_glGenLists]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGenLists:
+    mov rax, QWORD PTR [rip + _pfn_glGenLists]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGenLists]
+    lea rdx, [rip + _name_glGenLists]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGenTextures
-    glGenTextures :
-        mov rax, QWORD PTR [rip + _pfn_glGenTextures]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGenTextures:
+    mov rax, QWORD PTR [rip + _pfn_glGenTextures]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGenTextures]
+    lea rdx, [rip + _name_glGenTextures]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetBooleanv
-    glGetBooleanv :
-        mov rax, QWORD PTR [rip + _pfn_glGetBooleanv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetBooleanv:
+    mov rax, QWORD PTR [rip + _pfn_glGetBooleanv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetBooleanv]
+    lea rdx, [rip + _name_glGetBooleanv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetClipPlane
-    glGetClipPlane :
-        mov rax, QWORD PTR [rip + _pfn_glGetClipPlane]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetClipPlane:
+    mov rax, QWORD PTR [rip + _pfn_glGetClipPlane]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetClipPlane]
+    lea rdx, [rip + _name_glGetClipPlane]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetDoublev
-    glGetDoublev :
-        mov rax, QWORD PTR [rip + _pfn_glGetDoublev]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetDoublev:
+    mov rax, QWORD PTR [rip + _pfn_glGetDoublev]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetDoublev]
+    lea rdx, [rip + _name_glGetDoublev]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetError
-    glGetError :
-        mov rax, QWORD PTR [rip + _pfn_glGetError]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetError:
+    mov rax, QWORD PTR [rip + _pfn_glGetError]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetError]
+    lea rdx, [rip + _name_glGetError]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetFloatv
-    glGetFloatv :
-        mov rax, QWORD PTR [rip + _pfn_glGetFloatv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetFloatv:
+    mov rax, QWORD PTR [rip + _pfn_glGetFloatv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetFloatv]
+    lea rdx, [rip + _name_glGetFloatv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetIntegerv
-    glGetIntegerv :
-        mov rax, QWORD PTR [rip + _pfn_glGetIntegerv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetIntegerv:
+    mov rax, QWORD PTR [rip + _pfn_glGetIntegerv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetIntegerv]
+    lea rdx, [rip + _name_glGetIntegerv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetLightfv
-    glGetLightfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetLightfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetLightfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetLightfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetLightfv]
+    lea rdx, [rip + _name_glGetLightfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetLightiv
-    glGetLightiv :
-        mov rax, QWORD PTR [rip + _pfn_glGetLightiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetLightiv:
+    mov rax, QWORD PTR [rip + _pfn_glGetLightiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetLightiv]
+    lea rdx, [rip + _name_glGetLightiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetMapdv
-    glGetMapdv :
-        mov rax, QWORD PTR [rip + _pfn_glGetMapdv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetMapdv:
+    mov rax, QWORD PTR [rip + _pfn_glGetMapdv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetMapdv]
+    lea rdx, [rip + _name_glGetMapdv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetMapfv
-    glGetMapfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetMapfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetMapfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetMapfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetMapfv]
+    lea rdx, [rip + _name_glGetMapfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetMapiv
-    glGetMapiv :
-        mov rax, QWORD PTR [rip + _pfn_glGetMapiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetMapiv:
+    mov rax, QWORD PTR [rip + _pfn_glGetMapiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetMapiv]
+    lea rdx, [rip + _name_glGetMapiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetMaterialfv
-    glGetMaterialfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetMaterialfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetMaterialfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetMaterialfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetMaterialfv]
+    lea rdx, [rip + _name_glGetMaterialfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetMaterialiv
-    glGetMaterialiv :
-        mov rax, QWORD PTR [rip + _pfn_glGetMaterialiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetMaterialiv:
+    mov rax, QWORD PTR [rip + _pfn_glGetMaterialiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetMaterialiv]
+    lea rdx, [rip + _name_glGetMaterialiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetPixelMapfv
-    glGetPixelMapfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetPixelMapfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetPixelMapfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetPixelMapfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetPixelMapfv]
+    lea rdx, [rip + _name_glGetPixelMapfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetPixelMapuiv
-    glGetPixelMapuiv :
-        mov rax, QWORD PTR [rip + _pfn_glGetPixelMapuiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetPixelMapuiv:
+    mov rax, QWORD PTR [rip + _pfn_glGetPixelMapuiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetPixelMapuiv]
+    lea rdx, [rip + _name_glGetPixelMapuiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetPixelMapusv
-    glGetPixelMapusv :
-        mov rax, QWORD PTR [rip + _pfn_glGetPixelMapusv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetPixelMapusv:
+    mov rax, QWORD PTR [rip + _pfn_glGetPixelMapusv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetPixelMapusv]
+    lea rdx, [rip + _name_glGetPixelMapusv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetPointerv
-    glGetPointerv :
-        mov rax, QWORD PTR [rip + _pfn_glGetPointerv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetPointerv:
+    mov rax, QWORD PTR [rip + _pfn_glGetPointerv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetPointerv]
+    lea rdx, [rip + _name_glGetPointerv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetPolygonStipple
-    glGetPolygonStipple :
-        mov rax, QWORD PTR [rip + _pfn_glGetPolygonStipple]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetPolygonStipple:
+    mov rax, QWORD PTR [rip + _pfn_glGetPolygonStipple]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetPolygonStipple]
+    lea rdx, [rip + _name_glGetPolygonStipple]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetString
-    glGetString :
-        mov rax, QWORD PTR [rip + _pfn_glGetString]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetString:
+    mov rax, QWORD PTR [rip + _pfn_glGetString]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetString]
+    lea rdx, [rip + _name_glGetString]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexEnvfv
-    glGetTexEnvfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexEnvfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexEnvfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexEnvfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexEnvfv]
+    lea rdx, [rip + _name_glGetTexEnvfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexEnviv
-    glGetTexEnviv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexEnviv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexEnviv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexEnviv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexEnviv]
+    lea rdx, [rip + _name_glGetTexEnviv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexGendv
-    glGetTexGendv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexGendv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexGendv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexGendv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexGendv]
+    lea rdx, [rip + _name_glGetTexGendv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexGenfv
-    glGetTexGenfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexGenfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexGenfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexGenfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexGenfv]
+    lea rdx, [rip + _name_glGetTexGenfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexGeniv
-    glGetTexGeniv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexGeniv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexGeniv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexGeniv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexGeniv]
+    lea rdx, [rip + _name_glGetTexGeniv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexImage
-    glGetTexImage :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexImage]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexImage:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexImage]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexImage]
+    lea rdx, [rip + _name_glGetTexImage]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexLevelParameterfv
-    glGetTexLevelParameterfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexLevelParameterfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexLevelParameterfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexLevelParameterfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexLevelParameterfv]
+    lea rdx, [rip + _name_glGetTexLevelParameterfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexLevelParameteriv
-    glGetTexLevelParameteriv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexLevelParameteriv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexLevelParameteriv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexLevelParameteriv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexLevelParameteriv]
+    lea rdx, [rip + _name_glGetTexLevelParameteriv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexParameterfv
-    glGetTexParameterfv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexParameterfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexParameterfv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexParameterfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexParameterfv]
+    lea rdx, [rip + _name_glGetTexParameterfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glGetTexParameteriv
-    glGetTexParameteriv :
-        mov rax, QWORD PTR [rip + _pfn_glGetTexParameteriv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glGetTexParameteriv:
+    mov rax, QWORD PTR [rip + _pfn_glGetTexParameteriv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glGetTexParameteriv]
+    lea rdx, [rip + _name_glGetTexParameteriv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glHint
-    glHint :
-        mov rax, QWORD PTR [rip + _pfn_glHint]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glHint:
+    mov rax, QWORD PTR [rip + _pfn_glHint]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glHint]
+    lea rdx, [rip + _name_glHint]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexMask
-    glIndexMask :
-        mov rax, QWORD PTR [rip + _pfn_glIndexMask]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexMask:
+    mov rax, QWORD PTR [rip + _pfn_glIndexMask]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexMask]
+    lea rdx, [rip + _name_glIndexMask]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexPointer
-    glIndexPointer :
-        mov rax, QWORD PTR [rip + _pfn_glIndexPointer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexPointer:
+    mov rax, QWORD PTR [rip + _pfn_glIndexPointer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexPointer]
+    lea rdx, [rip + _name_glIndexPointer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexd
-    glIndexd :
-        mov rax, QWORD PTR [rip + _pfn_glIndexd]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexd:
+    mov rax, QWORD PTR [rip + _pfn_glIndexd]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexd]
+    lea rdx, [rip + _name_glIndexd]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexdv
-    glIndexdv :
-        mov rax, QWORD PTR [rip + _pfn_glIndexdv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexdv:
+    mov rax, QWORD PTR [rip + _pfn_glIndexdv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexdv]
+    lea rdx, [rip + _name_glIndexdv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexf
-    glIndexf :
-        mov rax, QWORD PTR [rip + _pfn_glIndexf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexf:
+    mov rax, QWORD PTR [rip + _pfn_glIndexf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexf]
+    lea rdx, [rip + _name_glIndexf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexfv
-    glIndexfv :
-        mov rax, QWORD PTR [rip + _pfn_glIndexfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexfv:
+    mov rax, QWORD PTR [rip + _pfn_glIndexfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexfv]
+    lea rdx, [rip + _name_glIndexfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexi
-    glIndexi :
-        mov rax, QWORD PTR [rip + _pfn_glIndexi]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexi:
+    mov rax, QWORD PTR [rip + _pfn_glIndexi]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexi]
+    lea rdx, [rip + _name_glIndexi]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexiv
-    glIndexiv :
-        mov rax, QWORD PTR [rip + _pfn_glIndexiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexiv:
+    mov rax, QWORD PTR [rip + _pfn_glIndexiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexiv]
+    lea rdx, [rip + _name_glIndexiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexs
-    glIndexs :
-        mov rax, QWORD PTR [rip + _pfn_glIndexs]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexs:
+    mov rax, QWORD PTR [rip + _pfn_glIndexs]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexs]
+    lea rdx, [rip + _name_glIndexs]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexsv
-    glIndexsv :
-        mov rax, QWORD PTR [rip + _pfn_glIndexsv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexsv:
+    mov rax, QWORD PTR [rip + _pfn_glIndexsv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexsv]
+    lea rdx, [rip + _name_glIndexsv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexub
-    glIndexub :
-        mov rax, QWORD PTR [rip + _pfn_glIndexub]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexub:
+    mov rax, QWORD PTR [rip + _pfn_glIndexub]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexub]
+    lea rdx, [rip + _name_glIndexub]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIndexubv
-    glIndexubv :
-        mov rax, QWORD PTR [rip + _pfn_glIndexubv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIndexubv:
+    mov rax, QWORD PTR [rip + _pfn_glIndexubv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIndexubv]
+    lea rdx, [rip + _name_glIndexubv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glInitNames
-    glInitNames :
-        mov rax, QWORD PTR [rip + _pfn_glInitNames]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glInitNames:
+    mov rax, QWORD PTR [rip + _pfn_glInitNames]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glInitNames]
+    lea rdx, [rip + _name_glInitNames]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glInterleavedArrays
-    glInterleavedArrays :
-        mov rax, QWORD PTR [rip + _pfn_glInterleavedArrays]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glInterleavedArrays:
+    mov rax, QWORD PTR [rip + _pfn_glInterleavedArrays]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glInterleavedArrays]
+    lea rdx, [rip + _name_glInterleavedArrays]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIsEnabled
-    glIsEnabled :
-        mov rax, QWORD PTR [rip + _pfn_glIsEnabled]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIsEnabled:
+    mov rax, QWORD PTR [rip + _pfn_glIsEnabled]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIsEnabled]
+    lea rdx, [rip + _name_glIsEnabled]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIsList
-    glIsList :
-        mov rax, QWORD PTR [rip + _pfn_glIsList]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIsList:
+    mov rax, QWORD PTR [rip + _pfn_glIsList]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIsList]
+    lea rdx, [rip + _name_glIsList]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glIsTexture
-    glIsTexture :
-        mov rax, QWORD PTR [rip + _pfn_glIsTexture]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glIsTexture:
+    mov rax, QWORD PTR [rip + _pfn_glIsTexture]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glIsTexture]
+    lea rdx, [rip + _name_glIsTexture]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightModelf
-    glLightModelf :
-        mov rax, QWORD PTR [rip + _pfn_glLightModelf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightModelf:
+    mov rax, QWORD PTR [rip + _pfn_glLightModelf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightModelf]
+    lea rdx, [rip + _name_glLightModelf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightModelfv
-    glLightModelfv :
-        mov rax, QWORD PTR [rip + _pfn_glLightModelfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightModelfv:
+    mov rax, QWORD PTR [rip + _pfn_glLightModelfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightModelfv]
+    lea rdx, [rip + _name_glLightModelfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightModeli
-    glLightModeli :
-        mov rax, QWORD PTR [rip + _pfn_glLightModeli]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightModeli:
+    mov rax, QWORD PTR [rip + _pfn_glLightModeli]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightModeli]
+    lea rdx, [rip + _name_glLightModeli]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightModeliv
-    glLightModeliv :
-        mov rax, QWORD PTR [rip + _pfn_glLightModeliv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightModeliv:
+    mov rax, QWORD PTR [rip + _pfn_glLightModeliv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightModeliv]
+    lea rdx, [rip + _name_glLightModeliv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightf
-    glLightf :
-        mov rax, QWORD PTR [rip + _pfn_glLightf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightf:
+    mov rax, QWORD PTR [rip + _pfn_glLightf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightf]
+    lea rdx, [rip + _name_glLightf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightfv
-    glLightfv :
-        mov rax, QWORD PTR [rip + _pfn_glLightfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightfv:
+    mov rax, QWORD PTR [rip + _pfn_glLightfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightfv]
+    lea rdx, [rip + _name_glLightfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLighti
-    glLighti :
-        mov rax, QWORD PTR [rip + _pfn_glLighti]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLighti:
+    mov rax, QWORD PTR [rip + _pfn_glLighti]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLighti]
+    lea rdx, [rip + _name_glLighti]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLightiv
-    glLightiv :
-        mov rax, QWORD PTR [rip + _pfn_glLightiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLightiv:
+    mov rax, QWORD PTR [rip + _pfn_glLightiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLightiv]
+    lea rdx, [rip + _name_glLightiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLineStipple
-    glLineStipple :
-        mov rax, QWORD PTR [rip + _pfn_glLineStipple]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLineStipple:
+    mov rax, QWORD PTR [rip + _pfn_glLineStipple]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLineStipple]
+    lea rdx, [rip + _name_glLineStipple]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLineWidth
-    glLineWidth :
-        mov rax, QWORD PTR [rip + _pfn_glLineWidth]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLineWidth:
+    mov rax, QWORD PTR [rip + _pfn_glLineWidth]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLineWidth]
+    lea rdx, [rip + _name_glLineWidth]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glListBase
-    glListBase :
-        mov rax, QWORD PTR [rip + _pfn_glListBase]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glListBase:
+    mov rax, QWORD PTR [rip + _pfn_glListBase]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glListBase]
+    lea rdx, [rip + _name_glListBase]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLoadIdentity
-    glLoadIdentity :
-        mov rax, QWORD PTR [rip + _pfn_glLoadIdentity]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLoadIdentity:
+    mov rax, QWORD PTR [rip + _pfn_glLoadIdentity]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLoadIdentity]
+    lea rdx, [rip + _name_glLoadIdentity]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLoadMatrixd
-    glLoadMatrixd :
-        mov rax, QWORD PTR [rip + _pfn_glLoadMatrixd]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLoadMatrixd:
+    mov rax, QWORD PTR [rip + _pfn_glLoadMatrixd]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLoadMatrixd]
+    lea rdx, [rip + _name_glLoadMatrixd]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLoadMatrixf
-    glLoadMatrixf :
-        mov rax, QWORD PTR [rip + _pfn_glLoadMatrixf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLoadMatrixf:
+    mov rax, QWORD PTR [rip + _pfn_glLoadMatrixf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLoadMatrixf]
+    lea rdx, [rip + _name_glLoadMatrixf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLoadName
-    glLoadName :
-        mov rax, QWORD PTR [rip + _pfn_glLoadName]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLoadName:
+    mov rax, QWORD PTR [rip + _pfn_glLoadName]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLoadName]
+    lea rdx, [rip + _name_glLoadName]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glLogicOp
-    glLogicOp :
-        mov rax, QWORD PTR [rip + _pfn_glLogicOp]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glLogicOp:
+    mov rax, QWORD PTR [rip + _pfn_glLogicOp]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glLogicOp]
+    lea rdx, [rip + _name_glLogicOp]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMap1d
-    glMap1d :
-        mov rax, QWORD PTR [rip + _pfn_glMap1d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMap1d:
+    mov rax, QWORD PTR [rip + _pfn_glMap1d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMap1d]
+    lea rdx, [rip + _name_glMap1d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMap1f
-    glMap1f :
-        mov rax, QWORD PTR [rip + _pfn_glMap1f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMap1f:
+    mov rax, QWORD PTR [rip + _pfn_glMap1f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMap1f]
+    lea rdx, [rip + _name_glMap1f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMap2d
-    glMap2d :
-        mov rax, QWORD PTR [rip + _pfn_glMap2d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMap2d:
+    mov rax, QWORD PTR [rip + _pfn_glMap2d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMap2d]
+    lea rdx, [rip + _name_glMap2d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMap2f
-    glMap2f :
-        mov rax, QWORD PTR [rip + _pfn_glMap2f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMap2f:
+    mov rax, QWORD PTR [rip + _pfn_glMap2f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMap2f]
+    lea rdx, [rip + _name_glMap2f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMapGrid1d
-    glMapGrid1d :
-        mov rax, QWORD PTR [rip + _pfn_glMapGrid1d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMapGrid1d:
+    mov rax, QWORD PTR [rip + _pfn_glMapGrid1d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMapGrid1d]
+    lea rdx, [rip + _name_glMapGrid1d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMapGrid1f
-    glMapGrid1f :
-        mov rax, QWORD PTR [rip + _pfn_glMapGrid1f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMapGrid1f:
+    mov rax, QWORD PTR [rip + _pfn_glMapGrid1f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMapGrid1f]
+    lea rdx, [rip + _name_glMapGrid1f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMapGrid2d
-    glMapGrid2d :
-        mov rax, QWORD PTR [rip + _pfn_glMapGrid2d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMapGrid2d:
+    mov rax, QWORD PTR [rip + _pfn_glMapGrid2d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMapGrid2d]
+    lea rdx, [rip + _name_glMapGrid2d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMapGrid2f
-    glMapGrid2f :
-        mov rax, QWORD PTR [rip + _pfn_glMapGrid2f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMapGrid2f:
+    mov rax, QWORD PTR [rip + _pfn_glMapGrid2f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMapGrid2f]
+    lea rdx, [rip + _name_glMapGrid2f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMaterialf
-    glMaterialf :
-        mov rax, QWORD PTR [rip + _pfn_glMaterialf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMaterialf:
+    mov rax, QWORD PTR [rip + _pfn_glMaterialf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMaterialf]
+    lea rdx, [rip + _name_glMaterialf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMaterialfv
-    glMaterialfv :
-        mov rax, QWORD PTR [rip + _pfn_glMaterialfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMaterialfv:
+    mov rax, QWORD PTR [rip + _pfn_glMaterialfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMaterialfv]
+    lea rdx, [rip + _name_glMaterialfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMateriali
-    glMateriali :
-        mov rax, QWORD PTR [rip + _pfn_glMateriali]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMateriali:
+    mov rax, QWORD PTR [rip + _pfn_glMateriali]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMateriali]
+    lea rdx, [rip + _name_glMateriali]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMaterialiv
-    glMaterialiv :
-        mov rax, QWORD PTR [rip + _pfn_glMaterialiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMaterialiv:
+    mov rax, QWORD PTR [rip + _pfn_glMaterialiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMaterialiv]
+    lea rdx, [rip + _name_glMaterialiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMatrixMode
-    glMatrixMode :
-        mov rax, QWORD PTR [rip + _pfn_glMatrixMode]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMatrixMode:
+    mov rax, QWORD PTR [rip + _pfn_glMatrixMode]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMatrixMode]
+    lea rdx, [rip + _name_glMatrixMode]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMultMatrixd
-    glMultMatrixd :
-        mov rax, QWORD PTR [rip + _pfn_glMultMatrixd]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMultMatrixd:
+    mov rax, QWORD PTR [rip + _pfn_glMultMatrixd]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMultMatrixd]
+    lea rdx, [rip + _name_glMultMatrixd]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glMultMatrixf
-    glMultMatrixf :
-        mov rax, QWORD PTR [rip + _pfn_glMultMatrixf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glMultMatrixf:
+    mov rax, QWORD PTR [rip + _pfn_glMultMatrixf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glMultMatrixf]
+    lea rdx, [rip + _name_glMultMatrixf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNewList
-    glNewList :
-        mov rax, QWORD PTR [rip + _pfn_glNewList]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNewList:
+    mov rax, QWORD PTR [rip + _pfn_glNewList]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNewList]
+    lea rdx, [rip + _name_glNewList]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3b
-    glNormal3b :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3b]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3b:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3b]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3b]
+    lea rdx, [rip + _name_glNormal3b]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3bv
-    glNormal3bv :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3bv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3bv:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3bv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3bv]
+    lea rdx, [rip + _name_glNormal3bv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3d
-    glNormal3d :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3d:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3d]
+    lea rdx, [rip + _name_glNormal3d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3dv
-    glNormal3dv :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3dv:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3dv]
+    lea rdx, [rip + _name_glNormal3dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3f
-    glNormal3f :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3f:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3f]
+    lea rdx, [rip + _name_glNormal3f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3fv
-    glNormal3fv :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3fv:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3fv]
+    lea rdx, [rip + _name_glNormal3fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3i
-    glNormal3i :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3i:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3i]
+    lea rdx, [rip + _name_glNormal3i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3iv
-    glNormal3iv :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3iv:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3iv]
+    lea rdx, [rip + _name_glNormal3iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3s
-    glNormal3s :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3s:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3s]
+    lea rdx, [rip + _name_glNormal3s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormal3sv
-    glNormal3sv :
-        mov rax, QWORD PTR [rip + _pfn_glNormal3sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormal3sv:
+    mov rax, QWORD PTR [rip + _pfn_glNormal3sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormal3sv]
+    lea rdx, [rip + _name_glNormal3sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glNormalPointer
-    glNormalPointer :
-        mov rax, QWORD PTR [rip + _pfn_glNormalPointer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glNormalPointer:
+    mov rax, QWORD PTR [rip + _pfn_glNormalPointer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glNormalPointer]
+    lea rdx, [rip + _name_glNormalPointer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glOrtho
-    glOrtho :
-        mov rax, QWORD PTR [rip + _pfn_glOrtho]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glOrtho:
+    mov rax, QWORD PTR [rip + _pfn_glOrtho]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glOrtho]
+    lea rdx, [rip + _name_glOrtho]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPassThrough
-    glPassThrough :
-        mov rax, QWORD PTR [rip + _pfn_glPassThrough]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPassThrough:
+    mov rax, QWORD PTR [rip + _pfn_glPassThrough]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPassThrough]
+    lea rdx, [rip + _name_glPassThrough]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelMapfv
-    glPixelMapfv :
-        mov rax, QWORD PTR [rip + _pfn_glPixelMapfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelMapfv:
+    mov rax, QWORD PTR [rip + _pfn_glPixelMapfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelMapfv]
+    lea rdx, [rip + _name_glPixelMapfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelMapuiv
-    glPixelMapuiv :
-        mov rax, QWORD PTR [rip + _pfn_glPixelMapuiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelMapuiv:
+    mov rax, QWORD PTR [rip + _pfn_glPixelMapuiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelMapuiv]
+    lea rdx, [rip + _name_glPixelMapuiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelMapusv
-    glPixelMapusv :
-        mov rax, QWORD PTR [rip + _pfn_glPixelMapusv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelMapusv:
+    mov rax, QWORD PTR [rip + _pfn_glPixelMapusv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelMapusv]
+    lea rdx, [rip + _name_glPixelMapusv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelStoref
-    glPixelStoref :
-        mov rax, QWORD PTR [rip + _pfn_glPixelStoref]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelStoref:
+    mov rax, QWORD PTR [rip + _pfn_glPixelStoref]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelStoref]
+    lea rdx, [rip + _name_glPixelStoref]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelStorei
-    glPixelStorei :
-        mov rax, QWORD PTR [rip + _pfn_glPixelStorei]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelStorei:
+    mov rax, QWORD PTR [rip + _pfn_glPixelStorei]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelStorei]
+    lea rdx, [rip + _name_glPixelStorei]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelTransferf
-    glPixelTransferf :
-        mov rax, QWORD PTR [rip + _pfn_glPixelTransferf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelTransferf:
+    mov rax, QWORD PTR [rip + _pfn_glPixelTransferf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelTransferf]
+    lea rdx, [rip + _name_glPixelTransferf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelTransferi
-    glPixelTransferi :
-        mov rax, QWORD PTR [rip + _pfn_glPixelTransferi]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelTransferi:
+    mov rax, QWORD PTR [rip + _pfn_glPixelTransferi]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelTransferi]
+    lea rdx, [rip + _name_glPixelTransferi]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPixelZoom
-    glPixelZoom :
-        mov rax, QWORD PTR [rip + _pfn_glPixelZoom]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPixelZoom:
+    mov rax, QWORD PTR [rip + _pfn_glPixelZoom]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPixelZoom]
+    lea rdx, [rip + _name_glPixelZoom]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPointSize
-    glPointSize :
-        mov rax, QWORD PTR [rip + _pfn_glPointSize]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPointSize:
+    mov rax, QWORD PTR [rip + _pfn_glPointSize]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPointSize]
+    lea rdx, [rip + _name_glPointSize]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPolygonMode
-    glPolygonMode :
-        mov rax, QWORD PTR [rip + _pfn_glPolygonMode]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPolygonMode:
+    mov rax, QWORD PTR [rip + _pfn_glPolygonMode]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPolygonMode]
+    lea rdx, [rip + _name_glPolygonMode]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPolygonOffset
-    glPolygonOffset :
-        mov rax, QWORD PTR [rip + _pfn_glPolygonOffset]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPolygonOffset:
+    mov rax, QWORD PTR [rip + _pfn_glPolygonOffset]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPolygonOffset]
+    lea rdx, [rip + _name_glPolygonOffset]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPolygonStipple
-    glPolygonStipple :
-        mov rax, QWORD PTR [rip + _pfn_glPolygonStipple]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPolygonStipple:
+    mov rax, QWORD PTR [rip + _pfn_glPolygonStipple]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPolygonStipple]
+    lea rdx, [rip + _name_glPolygonStipple]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPopAttrib
-    glPopAttrib :
-        mov rax, QWORD PTR [rip + _pfn_glPopAttrib]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPopAttrib:
+    mov rax, QWORD PTR [rip + _pfn_glPopAttrib]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPopAttrib]
+    lea rdx, [rip + _name_glPopAttrib]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPopClientAttrib
-    glPopClientAttrib :
-        mov rax, QWORD PTR [rip + _pfn_glPopClientAttrib]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPopClientAttrib:
+    mov rax, QWORD PTR [rip + _pfn_glPopClientAttrib]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPopClientAttrib]
+    lea rdx, [rip + _name_glPopClientAttrib]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPopMatrix
-    glPopMatrix :
-        mov rax, QWORD PTR [rip + _pfn_glPopMatrix]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPopMatrix:
+    mov rax, QWORD PTR [rip + _pfn_glPopMatrix]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPopMatrix]
+    lea rdx, [rip + _name_glPopMatrix]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPopName
-    glPopName :
-        mov rax, QWORD PTR [rip + _pfn_glPopName]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPopName:
+    mov rax, QWORD PTR [rip + _pfn_glPopName]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPopName]
+    lea rdx, [rip + _name_glPopName]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPrioritizeTextures
-    glPrioritizeTextures :
-        mov rax, QWORD PTR [rip + _pfn_glPrioritizeTextures]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPrioritizeTextures:
+    mov rax, QWORD PTR [rip + _pfn_glPrioritizeTextures]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPrioritizeTextures]
+    lea rdx, [rip + _name_glPrioritizeTextures]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPushAttrib
-    glPushAttrib :
-        mov rax, QWORD PTR [rip + _pfn_glPushAttrib]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPushAttrib:
+    mov rax, QWORD PTR [rip + _pfn_glPushAttrib]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPushAttrib]
+    lea rdx, [rip + _name_glPushAttrib]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPushClientAttrib
-    glPushClientAttrib :
-        mov rax, QWORD PTR [rip + _pfn_glPushClientAttrib]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPushClientAttrib:
+    mov rax, QWORD PTR [rip + _pfn_glPushClientAttrib]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPushClientAttrib]
+    lea rdx, [rip + _name_glPushClientAttrib]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPushMatrix
-    glPushMatrix :
-        mov rax, QWORD PTR [rip + _pfn_glPushMatrix]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPushMatrix:
+    mov rax, QWORD PTR [rip + _pfn_glPushMatrix]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPushMatrix]
+    lea rdx, [rip + _name_glPushMatrix]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glPushName
-    glPushName :
-        mov rax, QWORD PTR [rip + _pfn_glPushName]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glPushName:
+    mov rax, QWORD PTR [rip + _pfn_glPushName]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glPushName]
+    lea rdx, [rip + _name_glPushName]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2d
-    glRasterPos2d :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2d:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2d]
+    lea rdx, [rip + _name_glRasterPos2d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2dv
-    glRasterPos2dv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2dv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2dv]
+    lea rdx, [rip + _name_glRasterPos2dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2f
-    glRasterPos2f :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2f:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2f]
+    lea rdx, [rip + _name_glRasterPos2f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2fv
-    glRasterPos2fv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2fv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2fv]
+    lea rdx, [rip + _name_glRasterPos2fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2i
-    glRasterPos2i :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2i:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2i]
+    lea rdx, [rip + _name_glRasterPos2i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2iv
-    glRasterPos2iv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2iv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2iv]
+    lea rdx, [rip + _name_glRasterPos2iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2s
-    glRasterPos2s :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2s:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2s]
+    lea rdx, [rip + _name_glRasterPos2s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos2sv
-    glRasterPos2sv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos2sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos2sv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos2sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos2sv]
+    lea rdx, [rip + _name_glRasterPos2sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3d
-    glRasterPos3d :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3d:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3d]
+    lea rdx, [rip + _name_glRasterPos3d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3dv
-    glRasterPos3dv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3dv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3dv]
+    lea rdx, [rip + _name_glRasterPos3dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3f
-    glRasterPos3f :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3f:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3f]
+    lea rdx, [rip + _name_glRasterPos3f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3fv
-    glRasterPos3fv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3fv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3fv]
+    lea rdx, [rip + _name_glRasterPos3fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3i
-    glRasterPos3i :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3i:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3i]
+    lea rdx, [rip + _name_glRasterPos3i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3iv
-    glRasterPos3iv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3iv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3iv]
+    lea rdx, [rip + _name_glRasterPos3iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3s
-    glRasterPos3s :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3s:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3s]
+    lea rdx, [rip + _name_glRasterPos3s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos3sv
-    glRasterPos3sv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos3sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos3sv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos3sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos3sv]
+    lea rdx, [rip + _name_glRasterPos3sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4d
-    glRasterPos4d :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4d:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4d]
+    lea rdx, [rip + _name_glRasterPos4d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4dv
-    glRasterPos4dv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4dv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4dv]
+    lea rdx, [rip + _name_glRasterPos4dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4f
-    glRasterPos4f :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4f:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4f]
+    lea rdx, [rip + _name_glRasterPos4f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4fv
-    glRasterPos4fv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4fv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4fv]
+    lea rdx, [rip + _name_glRasterPos4fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4i
-    glRasterPos4i :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4i:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4i]
+    lea rdx, [rip + _name_glRasterPos4i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4iv
-    glRasterPos4iv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4iv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4iv]
+    lea rdx, [rip + _name_glRasterPos4iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4s
-    glRasterPos4s :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4s:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4s]
+    lea rdx, [rip + _name_glRasterPos4s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRasterPos4sv
-    glRasterPos4sv :
-        mov rax, QWORD PTR [rip + _pfn_glRasterPos4sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRasterPos4sv:
+    mov rax, QWORD PTR [rip + _pfn_glRasterPos4sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRasterPos4sv]
+    lea rdx, [rip + _name_glRasterPos4sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glReadBuffer
-    glReadBuffer :
-        mov rax, QWORD PTR [rip + _pfn_glReadBuffer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glReadBuffer:
+    mov rax, QWORD PTR [rip + _pfn_glReadBuffer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glReadBuffer]
+    lea rdx, [rip + _name_glReadBuffer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glReadPixels
-    glReadPixels :
-        mov rax, QWORD PTR [rip + _pfn_glReadPixels]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glReadPixels:
+    mov rax, QWORD PTR [rip + _pfn_glReadPixels]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glReadPixels]
+    lea rdx, [rip + _name_glReadPixels]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRectd
-    glRectd :
-        mov rax, QWORD PTR [rip + _pfn_glRectd]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRectd:
+    mov rax, QWORD PTR [rip + _pfn_glRectd]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRectd]
+    lea rdx, [rip + _name_glRectd]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRectdv
-    glRectdv :
-        mov rax, QWORD PTR [rip + _pfn_glRectdv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRectdv:
+    mov rax, QWORD PTR [rip + _pfn_glRectdv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRectdv]
+    lea rdx, [rip + _name_glRectdv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRectf
-    glRectf :
-        mov rax, QWORD PTR [rip + _pfn_glRectf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRectf:
+    mov rax, QWORD PTR [rip + _pfn_glRectf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRectf]
+    lea rdx, [rip + _name_glRectf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRectfv
-    glRectfv :
-        mov rax, QWORD PTR [rip + _pfn_glRectfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRectfv:
+    mov rax, QWORD PTR [rip + _pfn_glRectfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRectfv]
+    lea rdx, [rip + _name_glRectfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRecti
-    glRecti :
-        mov rax, QWORD PTR [rip + _pfn_glRecti]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRecti:
+    mov rax, QWORD PTR [rip + _pfn_glRecti]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRecti]
+    lea rdx, [rip + _name_glRecti]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRectiv
-    glRectiv :
-        mov rax, QWORD PTR [rip + _pfn_glRectiv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRectiv:
+    mov rax, QWORD PTR [rip + _pfn_glRectiv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRectiv]
+    lea rdx, [rip + _name_glRectiv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRects
-    glRects :
-        mov rax, QWORD PTR [rip + _pfn_glRects]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRects:
+    mov rax, QWORD PTR [rip + _pfn_glRects]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRects]
+    lea rdx, [rip + _name_glRects]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRectsv
-    glRectsv :
-        mov rax, QWORD PTR [rip + _pfn_glRectsv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRectsv:
+    mov rax, QWORD PTR [rip + _pfn_glRectsv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRectsv]
+    lea rdx, [rip + _name_glRectsv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRenderMode
-    glRenderMode :
-        mov rax, QWORD PTR [rip + _pfn_glRenderMode]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRenderMode:
+    mov rax, QWORD PTR [rip + _pfn_glRenderMode]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRenderMode]
+    lea rdx, [rip + _name_glRenderMode]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRotated
-    glRotated :
-        mov rax, QWORD PTR [rip + _pfn_glRotated]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRotated:
+    mov rax, QWORD PTR [rip + _pfn_glRotated]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRotated]
+    lea rdx, [rip + _name_glRotated]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glRotatef
-    glRotatef :
-        mov rax, QWORD PTR [rip + _pfn_glRotatef]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glRotatef:
+    mov rax, QWORD PTR [rip + _pfn_glRotatef]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glRotatef]
+    lea rdx, [rip + _name_glRotatef]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glScaled
-    glScaled :
-        mov rax, QWORD PTR [rip + _pfn_glScaled]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glScaled:
+    mov rax, QWORD PTR [rip + _pfn_glScaled]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glScaled]
+    lea rdx, [rip + _name_glScaled]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glScalef
-    glScalef :
-        mov rax, QWORD PTR [rip + _pfn_glScalef]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glScalef:
+    mov rax, QWORD PTR [rip + _pfn_glScalef]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glScalef]
+    lea rdx, [rip + _name_glScalef]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glScissor
-    glScissor :
-        mov rax, QWORD PTR [rip + _pfn_glScissor]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glScissor:
+    mov rax, QWORD PTR [rip + _pfn_glScissor]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glScissor]
+    lea rdx, [rip + _name_glScissor]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glSelectBuffer
-    glSelectBuffer :
-        mov rax, QWORD PTR [rip + _pfn_glSelectBuffer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glSelectBuffer:
+    mov rax, QWORD PTR [rip + _pfn_glSelectBuffer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glSelectBuffer]
+    lea rdx, [rip + _name_glSelectBuffer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glShadeModel
-    glShadeModel :
-        mov rax, QWORD PTR [rip + _pfn_glShadeModel]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glShadeModel:
+    mov rax, QWORD PTR [rip + _pfn_glShadeModel]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glShadeModel]
+    lea rdx, [rip + _name_glShadeModel]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glStencilFunc
-    glStencilFunc :
-        mov rax, QWORD PTR [rip + _pfn_glStencilFunc]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glStencilFunc:
+    mov rax, QWORD PTR [rip + _pfn_glStencilFunc]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glStencilFunc]
+    lea rdx, [rip + _name_glStencilFunc]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glStencilMask
-    glStencilMask :
-        mov rax, QWORD PTR [rip + _pfn_glStencilMask]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glStencilMask:
+    mov rax, QWORD PTR [rip + _pfn_glStencilMask]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glStencilMask]
+    lea rdx, [rip + _name_glStencilMask]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glStencilOp
-    glStencilOp :
-        mov rax, QWORD PTR [rip + _pfn_glStencilOp]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glStencilOp:
+    mov rax, QWORD PTR [rip + _pfn_glStencilOp]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glStencilOp]
+    lea rdx, [rip + _name_glStencilOp]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1d
-    glTexCoord1d :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1d:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1d]
+    lea rdx, [rip + _name_glTexCoord1d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1dv
-    glTexCoord1dv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1dv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1dv]
+    lea rdx, [rip + _name_glTexCoord1dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1f
-    glTexCoord1f :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1f:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1f]
+    lea rdx, [rip + _name_glTexCoord1f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1fv
-    glTexCoord1fv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1fv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1fv]
+    lea rdx, [rip + _name_glTexCoord1fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1i
-    glTexCoord1i :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1i:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1i]
+    lea rdx, [rip + _name_glTexCoord1i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1iv
-    glTexCoord1iv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1iv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1iv]
+    lea rdx, [rip + _name_glTexCoord1iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1s
-    glTexCoord1s :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1s:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1s]
+    lea rdx, [rip + _name_glTexCoord1s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord1sv
-    glTexCoord1sv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord1sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord1sv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord1sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord1sv]
+    lea rdx, [rip + _name_glTexCoord1sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2d
-    glTexCoord2d :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2d:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2d]
+    lea rdx, [rip + _name_glTexCoord2d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2dv
-    glTexCoord2dv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2dv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2dv]
+    lea rdx, [rip + _name_glTexCoord2dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2f
-    glTexCoord2f :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2f:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2f]
+    lea rdx, [rip + _name_glTexCoord2f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2fv
-    glTexCoord2fv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2fv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2fv]
+    lea rdx, [rip + _name_glTexCoord2fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2i
-    glTexCoord2i :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2i:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2i]
+    lea rdx, [rip + _name_glTexCoord2i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2iv
-    glTexCoord2iv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2iv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2iv]
+    lea rdx, [rip + _name_glTexCoord2iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2s
-    glTexCoord2s :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2s:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2s]
+    lea rdx, [rip + _name_glTexCoord2s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord2sv
-    glTexCoord2sv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord2sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord2sv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord2sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord2sv]
+    lea rdx, [rip + _name_glTexCoord2sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3d
-    glTexCoord3d :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3d:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3d]
+    lea rdx, [rip + _name_glTexCoord3d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3dv
-    glTexCoord3dv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3dv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3dv]
+    lea rdx, [rip + _name_glTexCoord3dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3f
-    glTexCoord3f :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3f:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3f]
+    lea rdx, [rip + _name_glTexCoord3f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3fv
-    glTexCoord3fv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3fv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3fv]
+    lea rdx, [rip + _name_glTexCoord3fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3i
-    glTexCoord3i :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3i:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3i]
+    lea rdx, [rip + _name_glTexCoord3i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3iv
-    glTexCoord3iv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3iv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3iv]
+    lea rdx, [rip + _name_glTexCoord3iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3s
-    glTexCoord3s :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3s:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3s]
+    lea rdx, [rip + _name_glTexCoord3s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord3sv
-    glTexCoord3sv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord3sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord3sv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord3sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord3sv]
+    lea rdx, [rip + _name_glTexCoord3sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4d
-    glTexCoord4d :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4d:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4d]
+    lea rdx, [rip + _name_glTexCoord4d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4dv
-    glTexCoord4dv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4dv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4dv]
+    lea rdx, [rip + _name_glTexCoord4dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4f
-    glTexCoord4f :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4f:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4f]
+    lea rdx, [rip + _name_glTexCoord4f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4fv
-    glTexCoord4fv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4fv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4fv]
+    lea rdx, [rip + _name_glTexCoord4fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4i
-    glTexCoord4i :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4i:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4i]
+    lea rdx, [rip + _name_glTexCoord4i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4iv
-    glTexCoord4iv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4iv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4iv]
+    lea rdx, [rip + _name_glTexCoord4iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4s
-    glTexCoord4s :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4s:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4s]
+    lea rdx, [rip + _name_glTexCoord4s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoord4sv
-    glTexCoord4sv :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoord4sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoord4sv:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoord4sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoord4sv]
+    lea rdx, [rip + _name_glTexCoord4sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexCoordPointer
-    glTexCoordPointer :
-        mov rax, QWORD PTR [rip + _pfn_glTexCoordPointer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexCoordPointer:
+    mov rax, QWORD PTR [rip + _pfn_glTexCoordPointer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexCoordPointer]
+    lea rdx, [rip + _name_glTexCoordPointer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexEnvf
-    glTexEnvf :
-        mov rax, QWORD PTR [rip + _pfn_glTexEnvf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexEnvf:
+    mov rax, QWORD PTR [rip + _pfn_glTexEnvf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexEnvf]
+    lea rdx, [rip + _name_glTexEnvf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexEnvfv
-    glTexEnvfv :
-        mov rax, QWORD PTR [rip + _pfn_glTexEnvfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexEnvfv:
+    mov rax, QWORD PTR [rip + _pfn_glTexEnvfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexEnvfv]
+    lea rdx, [rip + _name_glTexEnvfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexEnvi
-    glTexEnvi :
-        mov rax, QWORD PTR [rip + _pfn_glTexEnvi]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexEnvi:
+    mov rax, QWORD PTR [rip + _pfn_glTexEnvi]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexEnvi]
+    lea rdx, [rip + _name_glTexEnvi]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexEnviv
-    glTexEnviv :
-        mov rax, QWORD PTR [rip + _pfn_glTexEnviv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexEnviv:
+    mov rax, QWORD PTR [rip + _pfn_glTexEnviv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexEnviv]
+    lea rdx, [rip + _name_glTexEnviv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexGend
-    glTexGend :
-        mov rax, QWORD PTR [rip + _pfn_glTexGend]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexGend:
+    mov rax, QWORD PTR [rip + _pfn_glTexGend]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexGend]
+    lea rdx, [rip + _name_glTexGend]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexGendv
-    glTexGendv :
-        mov rax, QWORD PTR [rip + _pfn_glTexGendv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexGendv:
+    mov rax, QWORD PTR [rip + _pfn_glTexGendv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexGendv]
+    lea rdx, [rip + _name_glTexGendv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexGenf
-    glTexGenf :
-        mov rax, QWORD PTR [rip + _pfn_glTexGenf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexGenf:
+    mov rax, QWORD PTR [rip + _pfn_glTexGenf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexGenf]
+    lea rdx, [rip + _name_glTexGenf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexGenfv
-    glTexGenfv :
-        mov rax, QWORD PTR [rip + _pfn_glTexGenfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexGenfv:
+    mov rax, QWORD PTR [rip + _pfn_glTexGenfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexGenfv]
+    lea rdx, [rip + _name_glTexGenfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexGeni
-    glTexGeni :
-        mov rax, QWORD PTR [rip + _pfn_glTexGeni]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexGeni:
+    mov rax, QWORD PTR [rip + _pfn_glTexGeni]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexGeni]
+    lea rdx, [rip + _name_glTexGeni]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexGeniv
-    glTexGeniv :
-        mov rax, QWORD PTR [rip + _pfn_glTexGeniv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexGeniv:
+    mov rax, QWORD PTR [rip + _pfn_glTexGeniv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexGeniv]
+    lea rdx, [rip + _name_glTexGeniv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexImage1D
-    glTexImage1D :
-        mov rax, QWORD PTR [rip + _pfn_glTexImage1D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexImage1D:
+    mov rax, QWORD PTR [rip + _pfn_glTexImage1D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexImage1D]
+    lea rdx, [rip + _name_glTexImage1D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexImage2D
-    glTexImage2D :
-        mov rax, QWORD PTR [rip + _pfn_glTexImage2D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexImage2D:
+    mov rax, QWORD PTR [rip + _pfn_glTexImage2D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexImage2D]
+    lea rdx, [rip + _name_glTexImage2D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexParameterf
-    glTexParameterf :
-        mov rax, QWORD PTR [rip + _pfn_glTexParameterf]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexParameterf:
+    mov rax, QWORD PTR [rip + _pfn_glTexParameterf]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexParameterf]
+    lea rdx, [rip + _name_glTexParameterf]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexParameterfv
-    glTexParameterfv :
-        mov rax, QWORD PTR [rip + _pfn_glTexParameterfv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexParameterfv:
+    mov rax, QWORD PTR [rip + _pfn_glTexParameterfv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexParameterfv]
+    lea rdx, [rip + _name_glTexParameterfv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexParameteri
-    glTexParameteri :
-        mov rax, QWORD PTR [rip + _pfn_glTexParameteri]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexParameteri:
+    mov rax, QWORD PTR [rip + _pfn_glTexParameteri]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexParameteri]
+    lea rdx, [rip + _name_glTexParameteri]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexParameteriv
-    glTexParameteriv :
-        mov rax, QWORD PTR [rip + _pfn_glTexParameteriv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexParameteriv:
+    mov rax, QWORD PTR [rip + _pfn_glTexParameteriv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexParameteriv]
+    lea rdx, [rip + _name_glTexParameteriv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexSubImage1D
-    glTexSubImage1D :
-        mov rax, QWORD PTR [rip + _pfn_glTexSubImage1D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexSubImage1D:
+    mov rax, QWORD PTR [rip + _pfn_glTexSubImage1D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexSubImage1D]
+    lea rdx, [rip + _name_glTexSubImage1D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTexSubImage2D
-    glTexSubImage2D :
-        mov rax, QWORD PTR [rip + _pfn_glTexSubImage2D]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTexSubImage2D:
+    mov rax, QWORD PTR [rip + _pfn_glTexSubImage2D]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTexSubImage2D]
+    lea rdx, [rip + _name_glTexSubImage2D]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTranslated
-    glTranslated :
-        mov rax, QWORD PTR [rip + _pfn_glTranslated]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTranslated:
+    mov rax, QWORD PTR [rip + _pfn_glTranslated]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTranslated]
+    lea rdx, [rip + _name_glTranslated]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glTranslatef
-    glTranslatef :
-        mov rax, QWORD PTR [rip + _pfn_glTranslatef]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glTranslatef:
+    mov rax, QWORD PTR [rip + _pfn_glTranslatef]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glTranslatef]
+    lea rdx, [rip + _name_glTranslatef]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2d
-    glVertex2d :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2d:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2d]
+    lea rdx, [rip + _name_glVertex2d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2dv
-    glVertex2dv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2dv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2dv]
+    lea rdx, [rip + _name_glVertex2dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2f
-    glVertex2f :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2f:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2f]
+    lea rdx, [rip + _name_glVertex2f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2fv
-    glVertex2fv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2fv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2fv]
+    lea rdx, [rip + _name_glVertex2fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2i
-    glVertex2i :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2i:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2i]
+    lea rdx, [rip + _name_glVertex2i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2iv
-    glVertex2iv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2iv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2iv]
+    lea rdx, [rip + _name_glVertex2iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2s
-    glVertex2s :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2s:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2s]
+    lea rdx, [rip + _name_glVertex2s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex2sv
-    glVertex2sv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex2sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex2sv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex2sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex2sv]
+    lea rdx, [rip + _name_glVertex2sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3d
-    glVertex3d :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3d:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3d]
+    lea rdx, [rip + _name_glVertex3d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3dv
-    glVertex3dv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3dv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3dv]
+    lea rdx, [rip + _name_glVertex3dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3f
-    glVertex3f :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3f:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3f]
+    lea rdx, [rip + _name_glVertex3f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3fv
-    glVertex3fv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3fv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3fv]
+    lea rdx, [rip + _name_glVertex3fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3i
-    glVertex3i :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3i:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3i]
+    lea rdx, [rip + _name_glVertex3i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3iv
-    glVertex3iv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3iv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3iv]
+    lea rdx, [rip + _name_glVertex3iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3s
-    glVertex3s :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3s:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3s]
+    lea rdx, [rip + _name_glVertex3s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex3sv
-    glVertex3sv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex3sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex3sv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex3sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex3sv]
+    lea rdx, [rip + _name_glVertex3sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4d
-    glVertex4d :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4d]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4d:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4d]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4d]
+    lea rdx, [rip + _name_glVertex4d]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4dv
-    glVertex4dv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4dv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4dv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4dv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4dv]
+    lea rdx, [rip + _name_glVertex4dv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4f
-    glVertex4f :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4f]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4f:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4f]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4f]
+    lea rdx, [rip + _name_glVertex4f]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4fv
-    glVertex4fv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4fv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4fv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4fv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4fv]
+    lea rdx, [rip + _name_glVertex4fv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4i
-    glVertex4i :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4i]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4i:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4i]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4i]
+    lea rdx, [rip + _name_glVertex4i]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4iv
-    glVertex4iv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4iv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4iv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4iv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4iv]
+    lea rdx, [rip + _name_glVertex4iv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4s
-    glVertex4s :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4s]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4s:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4s]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4s]
+    lea rdx, [rip + _name_glVertex4s]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertex4sv
-    glVertex4sv :
-        mov rax, QWORD PTR [rip + _pfn_glVertex4sv]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertex4sv:
+    mov rax, QWORD PTR [rip + _pfn_glVertex4sv]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertex4sv]
+    lea rdx, [rip + _name_glVertex4sv]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glVertexPointer
-    glVertexPointer :
-        mov rax, QWORD PTR [rip + _pfn_glVertexPointer]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glVertexPointer:
+    mov rax, QWORD PTR [rip + _pfn_glVertexPointer]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glVertexPointer]
+    lea rdx, [rip + _name_glVertexPointer]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global glViewport
-    glViewport :
-        mov rax, QWORD PTR [rip + _pfn_glViewport]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+glViewport:
+    mov rax, QWORD PTR [rip + _pfn_glViewport]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_glViewport]
+    lea rdx, [rip + _name_glViewport]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglChoosePixelFormat
-    wglChoosePixelFormat :
-        mov rax, QWORD PTR [rip + _pfn_wglChoosePixelFormat]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglChoosePixelFormat:
+    mov rax, QWORD PTR [rip + _pfn_wglChoosePixelFormat]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglChoosePixelFormat]
+    lea rdx, [rip + _name_wglChoosePixelFormat]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglCopyContext
-    wglCopyContext :
-        mov rax, QWORD PTR [rip + _pfn_wglCopyContext]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglCopyContext:
+    mov rax, QWORD PTR [rip + _pfn_wglCopyContext]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglCopyContext]
+    lea rdx, [rip + _name_wglCopyContext]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglCreateContext
-    wglCreateContext :
-        mov rax, QWORD PTR [rip + _pfn_wglCreateContext]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglCreateContext:
+    mov rax, QWORD PTR [rip + _pfn_wglCreateContext]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglCreateContext]
+    lea rdx, [rip + _name_wglCreateContext]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglCreateLayerContext
-    wglCreateLayerContext :
-        mov rax, QWORD PTR [rip + _pfn_wglCreateLayerContext]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglCreateLayerContext:
+    mov rax, QWORD PTR [rip + _pfn_wglCreateLayerContext]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglCreateLayerContext]
+    lea rdx, [rip + _name_wglCreateLayerContext]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglDeleteContext
-    wglDeleteContext :
-        mov rax, QWORD PTR [rip + _pfn_wglDeleteContext]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglDeleteContext:
+    mov rax, QWORD PTR [rip + _pfn_wglDeleteContext]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglDeleteContext]
+    lea rdx, [rip + _name_wglDeleteContext]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglDescribeLayerPlane
-    wglDescribeLayerPlane :
-        mov rax, QWORD PTR [rip + _pfn_wglDescribeLayerPlane]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglDescribeLayerPlane:
+    mov rax, QWORD PTR [rip + _pfn_wglDescribeLayerPlane]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglDescribeLayerPlane]
+    lea rdx, [rip + _name_wglDescribeLayerPlane]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglDescribePixelFormat
-    wglDescribePixelFormat :
-        mov rax, QWORD PTR [rip + _pfn_wglDescribePixelFormat]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglDescribePixelFormat:
+    mov rax, QWORD PTR [rip + _pfn_wglDescribePixelFormat]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglDescribePixelFormat]
+    lea rdx, [rip + _name_wglDescribePixelFormat]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglGetCurrentContext
-    wglGetCurrentContext :
-        mov rax, QWORD PTR [rip + _pfn_wglGetCurrentContext]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglGetCurrentContext:
+    mov rax, QWORD PTR [rip + _pfn_wglGetCurrentContext]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglGetCurrentContext]
+    lea rdx, [rip + _name_wglGetCurrentContext]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglGetCurrentDC
-    wglGetCurrentDC :
-        mov rax, QWORD PTR [rip + _pfn_wglGetCurrentDC]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglGetCurrentDC:
+    mov rax, QWORD PTR [rip + _pfn_wglGetCurrentDC]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglGetCurrentDC]
+    lea rdx, [rip + _name_wglGetCurrentDC]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglGetLayerPaletteEntries
-    wglGetLayerPaletteEntries :
-        mov rax, QWORD PTR [rip + _pfn_wglGetLayerPaletteEntries]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglGetLayerPaletteEntries:
+    mov rax, QWORD PTR [rip + _pfn_wglGetLayerPaletteEntries]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglGetLayerPaletteEntries]
+    lea rdx, [rip + _name_wglGetLayerPaletteEntries]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglGetPixelFormat
-    wglGetPixelFormat :
-        mov rax, QWORD PTR [rip + _pfn_wglGetPixelFormat]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
-
-    .global wglGetProcAddress
-    wglGetProcAddress :
-        mov rax, QWORD PTR [rip + _pfn_wglGetProcAddress]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglGetPixelFormat:
+    mov rax, QWORD PTR [rip + _pfn_wglGetPixelFormat]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglGetPixelFormat]
+    lea rdx, [rip + _name_wglGetPixelFormat]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglMakeCurrent
-    wglMakeCurrent :
-        mov rax, QWORD PTR [rip + _pfn_wglMakeCurrent]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglMakeCurrent:
+    mov rax, QWORD PTR [rip + _pfn_wglMakeCurrent]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglMakeCurrent]
+    lea rdx, [rip + _name_wglMakeCurrent]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglRealizeLayerPalette
-    wglRealizeLayerPalette :
-        mov rax, QWORD PTR [rip + _pfn_wglRealizeLayerPalette]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglRealizeLayerPalette:
+    mov rax, QWORD PTR [rip + _pfn_wglRealizeLayerPalette]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglRealizeLayerPalette]
+    lea rdx, [rip + _name_wglRealizeLayerPalette]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglSetLayerPaletteEntries
-    wglSetLayerPaletteEntries :
-        mov rax, QWORD PTR [rip + _pfn_wglSetLayerPaletteEntries]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglSetLayerPaletteEntries:
+    mov rax, QWORD PTR [rip + _pfn_wglSetLayerPaletteEntries]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglSetLayerPaletteEntries]
+    lea rdx, [rip + _name_wglSetLayerPaletteEntries]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglSetPixelFormat
-    wglSetPixelFormat :
-        mov rax, QWORD PTR [rip + _pfn_wglSetPixelFormat]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglSetPixelFormat:
+    mov rax, QWORD PTR [rip + _pfn_wglSetPixelFormat]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglSetPixelFormat]
+    lea rdx, [rip + _name_wglSetPixelFormat]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglShareLists
-    wglShareLists :
-        mov rax, QWORD PTR [rip + _pfn_wglShareLists]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
-
-    .global wglSwapLayerBuffers
-    wglSwapLayerBuffers :
-        mov rax, QWORD PTR [rip + _pfn_wglSwapLayerBuffers]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglShareLists:
+    mov rax, QWORD PTR [rip + _pfn_wglShareLists]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglShareLists]
+    lea rdx, [rip + _name_wglShareLists]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglSwapMultipleBuffers
-    wglSwapMultipleBuffers :
-        mov rax, QWORD PTR [rip + _pfn_wglSwapMultipleBuffers]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglSwapMultipleBuffers:
+    mov rax, QWORD PTR [rip + _pfn_wglSwapMultipleBuffers]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglSwapMultipleBuffers]
+    lea rdx, [rip + _name_wglSwapMultipleBuffers]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglUseFontBitmapsA
-    wglUseFontBitmapsA :
-        mov rax, QWORD PTR [rip + _pfn_wglUseFontBitmapsA]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglUseFontBitmapsA:
+    mov rax, QWORD PTR [rip + _pfn_wglUseFontBitmapsA]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglUseFontBitmapsA]
+    lea rdx, [rip + _name_wglUseFontBitmapsA]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglUseFontBitmapsW
-    wglUseFontBitmapsW :
-        mov rax, QWORD PTR [rip + _pfn_wglUseFontBitmapsW]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglUseFontBitmapsW:
+    mov rax, QWORD PTR [rip + _pfn_wglUseFontBitmapsW]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglUseFontBitmapsW]
+    lea rdx, [rip + _name_wglUseFontBitmapsW]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglUseFontOutlinesA
-    wglUseFontOutlinesA :
-        mov rax, QWORD PTR [rip + _pfn_wglUseFontOutlinesA]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglUseFontOutlinesA:
+    mov rax, QWORD PTR [rip + _pfn_wglUseFontOutlinesA]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglUseFontOutlinesA]
+    lea rdx, [rip + _name_wglUseFontOutlinesA]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
     .global wglUseFontOutlinesW
-    wglUseFontOutlinesW :
-        mov rax, QWORD PTR [rip + _pfn_wglUseFontOutlinesW]
-        test rax, rax
-        jz 1f
-        jmp rax
-    1:  ret
+wglUseFontOutlinesW:
+    mov rax, QWORD PTR [rip + _pfn_wglUseFontOutlinesW]
+    test rax, rax
+    jnz 1f
+    /* --- lazy bind (preserve argument registers) --- */
+    sub rsp, 0x88
+    mov [rsp+0x20], rcx
+    mov [rsp+0x28], rdx
+    mov [rsp+0x30], r8
+    mov [rsp+0x38], r9
+    movdqu [rsp+0x40], xmm0
+    movdqu [rsp+0x50], xmm1
+    movdqu [rsp+0x60], xmm2
+    movdqu [rsp+0x70], xmm3
+    lea rcx, [rip + _pfn_wglUseFontOutlinesW]
+    lea rdx, [rip + _name_wglUseFontOutlinesW]
+    call GL_LazyBind
+    mov rcx, [rsp+0x20]
+    mov rdx, [rsp+0x28]
+    mov r8,  [rsp+0x30]
+    mov r9,  [rsp+0x38]
+    movdqu xmm0, [rsp+0x40]
+    movdqu xmm1, [rsp+0x50]
+    movdqu xmm2, [rsp+0x60]
+    movdqu xmm3, [rsp+0x70]
+    add rsp, 0x88
+    test rax, rax
+    jz 2f
+    jmp rax
+1:  jmp rax
+2:  xor eax, eax
+    ret
 
-/* Pointer table - initialized by GL_ForwardersInit() */
-    .data
+.section .rdata,"dr"
+
+_name_glAccum: .asciz "glAccum"
+_name_glAlphaFunc: .asciz "glAlphaFunc"
+_name_glAreTexturesResident: .asciz "glAreTexturesResident"
+_name_glArrayElement: .asciz "glArrayElement"
+_name_glBegin: .asciz "glBegin"
+_name_glBindTexture: .asciz "glBindTexture"
+_name_glBitmap: .asciz "glBitmap"
+_name_glBlendFunc: .asciz "glBlendFunc"
+_name_glCallList: .asciz "glCallList"
+_name_glCallLists: .asciz "glCallLists"
+_name_glClear: .asciz "glClear"
+_name_glClearAccum: .asciz "glClearAccum"
+_name_glClearColor: .asciz "glClearColor"
+_name_glClearDepth: .asciz "glClearDepth"
+_name_glClearIndex: .asciz "glClearIndex"
+_name_glClearStencil: .asciz "glClearStencil"
+_name_glClipPlane: .asciz "glClipPlane"
+_name_glColor3b: .asciz "glColor3b"
+_name_glColor3bv: .asciz "glColor3bv"
+_name_glColor3d: .asciz "glColor3d"
+_name_glColor3dv: .asciz "glColor3dv"
+_name_glColor3f: .asciz "glColor3f"
+_name_glColor3fv: .asciz "glColor3fv"
+_name_glColor3i: .asciz "glColor3i"
+_name_glColor3iv: .asciz "glColor3iv"
+_name_glColor3s: .asciz "glColor3s"
+_name_glColor3sv: .asciz "glColor3sv"
+_name_glColor3ub: .asciz "glColor3ub"
+_name_glColor3ubv: .asciz "glColor3ubv"
+_name_glColor3ui: .asciz "glColor3ui"
+_name_glColor3uiv: .asciz "glColor3uiv"
+_name_glColor3us: .asciz "glColor3us"
+_name_glColor3usv: .asciz "glColor3usv"
+_name_glColor4b: .asciz "glColor4b"
+_name_glColor4bv: .asciz "glColor4bv"
+_name_glColor4d: .asciz "glColor4d"
+_name_glColor4dv: .asciz "glColor4dv"
+_name_glColor4f: .asciz "glColor4f"
+_name_glColor4fv: .asciz "glColor4fv"
+_name_glColor4i: .asciz "glColor4i"
+_name_glColor4iv: .asciz "glColor4iv"
+_name_glColor4s: .asciz "glColor4s"
+_name_glColor4sv: .asciz "glColor4sv"
+_name_glColor4ub: .asciz "glColor4ub"
+_name_glColor4ubv: .asciz "glColor4ubv"
+_name_glColor4ui: .asciz "glColor4ui"
+_name_glColor4uiv: .asciz "glColor4uiv"
+_name_glColor4us: .asciz "glColor4us"
+_name_glColor4usv: .asciz "glColor4usv"
+_name_glColorMask: .asciz "glColorMask"
+_name_glColorMaterial: .asciz "glColorMaterial"
+_name_glColorPointer: .asciz "glColorPointer"
+_name_glCopyPixels: .asciz "glCopyPixels"
+_name_glCopyTexImage1D: .asciz "glCopyTexImage1D"
+_name_glCopyTexImage2D: .asciz "glCopyTexImage2D"
+_name_glCopyTexSubImage1D: .asciz "glCopyTexSubImage1D"
+_name_glCopyTexSubImage2D: .asciz "glCopyTexSubImage2D"
+_name_glCullFace: .asciz "glCullFace"
+_name_glDeleteLists: .asciz "glDeleteLists"
+_name_glDeleteTextures: .asciz "glDeleteTextures"
+_name_glDepthFunc: .asciz "glDepthFunc"
+_name_glDepthMask: .asciz "glDepthMask"
+_name_glDepthRange: .asciz "glDepthRange"
+_name_glDisable: .asciz "glDisable"
+_name_glDisableClientState: .asciz "glDisableClientState"
+_name_glDrawArrays: .asciz "glDrawArrays"
+_name_glDrawBuffer: .asciz "glDrawBuffer"
+_name_glDrawPixels: .asciz "glDrawPixels"
+_name_glEdgeFlag: .asciz "glEdgeFlag"
+_name_glEdgeFlagPointer: .asciz "glEdgeFlagPointer"
+_name_glEdgeFlagv: .asciz "glEdgeFlagv"
+_name_glEnable: .asciz "glEnable"
+_name_glEnableClientState: .asciz "glEnableClientState"
+_name_glEnd: .asciz "glEnd"
+_name_glEndList: .asciz "glEndList"
+_name_glEvalCoord1d: .asciz "glEvalCoord1d"
+_name_glEvalCoord1dv: .asciz "glEvalCoord1dv"
+_name_glEvalCoord1f: .asciz "glEvalCoord1f"
+_name_glEvalCoord1fv: .asciz "glEvalCoord1fv"
+_name_glEvalCoord2d: .asciz "glEvalCoord2d"
+_name_glEvalCoord2dv: .asciz "glEvalCoord2dv"
+_name_glEvalCoord2f: .asciz "glEvalCoord2f"
+_name_glEvalCoord2fv: .asciz "glEvalCoord2fv"
+_name_glEvalMesh1: .asciz "glEvalMesh1"
+_name_glEvalMesh2: .asciz "glEvalMesh2"
+_name_glEvalPoint1: .asciz "glEvalPoint1"
+_name_glEvalPoint2: .asciz "glEvalPoint2"
+_name_glFeedbackBuffer: .asciz "glFeedbackBuffer"
+_name_glFinish: .asciz "glFinish"
+_name_glFlush: .asciz "glFlush"
+_name_glFogf: .asciz "glFogf"
+_name_glFogfv: .asciz "glFogfv"
+_name_glFogi: .asciz "glFogi"
+_name_glFogiv: .asciz "glFogiv"
+_name_glFrontFace: .asciz "glFrontFace"
+_name_glFrustum: .asciz "glFrustum"
+_name_glGenLists: .asciz "glGenLists"
+_name_glGenTextures: .asciz "glGenTextures"
+_name_glGetBooleanv: .asciz "glGetBooleanv"
+_name_glGetClipPlane: .asciz "glGetClipPlane"
+_name_glGetDoublev: .asciz "glGetDoublev"
+_name_glGetError: .asciz "glGetError"
+_name_glGetFloatv: .asciz "glGetFloatv"
+_name_glGetIntegerv: .asciz "glGetIntegerv"
+_name_glGetLightfv: .asciz "glGetLightfv"
+_name_glGetLightiv: .asciz "glGetLightiv"
+_name_glGetMapdv: .asciz "glGetMapdv"
+_name_glGetMapfv: .asciz "glGetMapfv"
+_name_glGetMapiv: .asciz "glGetMapiv"
+_name_glGetMaterialfv: .asciz "glGetMaterialfv"
+_name_glGetMaterialiv: .asciz "glGetMaterialiv"
+_name_glGetPixelMapfv: .asciz "glGetPixelMapfv"
+_name_glGetPixelMapuiv: .asciz "glGetPixelMapuiv"
+_name_glGetPixelMapusv: .asciz "glGetPixelMapusv"
+_name_glGetPointerv: .asciz "glGetPointerv"
+_name_glGetPolygonStipple: .asciz "glGetPolygonStipple"
+_name_glGetString: .asciz "glGetString"
+_name_glGetTexEnvfv: .asciz "glGetTexEnvfv"
+_name_glGetTexEnviv: .asciz "glGetTexEnviv"
+_name_glGetTexGendv: .asciz "glGetTexGendv"
+_name_glGetTexGenfv: .asciz "glGetTexGenfv"
+_name_glGetTexGeniv: .asciz "glGetTexGeniv"
+_name_glGetTexImage: .asciz "glGetTexImage"
+_name_glGetTexLevelParameterfv: .asciz "glGetTexLevelParameterfv"
+_name_glGetTexLevelParameteriv: .asciz "glGetTexLevelParameteriv"
+_name_glGetTexParameterfv: .asciz "glGetTexParameterfv"
+_name_glGetTexParameteriv: .asciz "glGetTexParameteriv"
+_name_glHint: .asciz "glHint"
+_name_glIndexMask: .asciz "glIndexMask"
+_name_glIndexPointer: .asciz "glIndexPointer"
+_name_glIndexd: .asciz "glIndexd"
+_name_glIndexdv: .asciz "glIndexdv"
+_name_glIndexf: .asciz "glIndexf"
+_name_glIndexfv: .asciz "glIndexfv"
+_name_glIndexi: .asciz "glIndexi"
+_name_glIndexiv: .asciz "glIndexiv"
+_name_glIndexs: .asciz "glIndexs"
+_name_glIndexsv: .asciz "glIndexsv"
+_name_glIndexub: .asciz "glIndexub"
+_name_glIndexubv: .asciz "glIndexubv"
+_name_glInitNames: .asciz "glInitNames"
+_name_glInterleavedArrays: .asciz "glInterleavedArrays"
+_name_glIsEnabled: .asciz "glIsEnabled"
+_name_glIsList: .asciz "glIsList"
+_name_glIsTexture: .asciz "glIsTexture"
+_name_glLightModelf: .asciz "glLightModelf"
+_name_glLightModelfv: .asciz "glLightModelfv"
+_name_glLightModeli: .asciz "glLightModeli"
+_name_glLightModeliv: .asciz "glLightModeliv"
+_name_glLightf: .asciz "glLightf"
+_name_glLightfv: .asciz "glLightfv"
+_name_glLighti: .asciz "glLighti"
+_name_glLightiv: .asciz "glLightiv"
+_name_glLineStipple: .asciz "glLineStipple"
+_name_glLineWidth: .asciz "glLineWidth"
+_name_glListBase: .asciz "glListBase"
+_name_glLoadIdentity: .asciz "glLoadIdentity"
+_name_glLoadMatrixd: .asciz "glLoadMatrixd"
+_name_glLoadMatrixf: .asciz "glLoadMatrixf"
+_name_glLoadName: .asciz "glLoadName"
+_name_glLogicOp: .asciz "glLogicOp"
+_name_glMap1d: .asciz "glMap1d"
+_name_glMap1f: .asciz "glMap1f"
+_name_glMap2d: .asciz "glMap2d"
+_name_glMap2f: .asciz "glMap2f"
+_name_glMapGrid1d: .asciz "glMapGrid1d"
+_name_glMapGrid1f: .asciz "glMapGrid1f"
+_name_glMapGrid2d: .asciz "glMapGrid2d"
+_name_glMapGrid2f: .asciz "glMapGrid2f"
+_name_glMaterialf: .asciz "glMaterialf"
+_name_glMaterialfv: .asciz "glMaterialfv"
+_name_glMateriali: .asciz "glMateriali"
+_name_glMaterialiv: .asciz "glMaterialiv"
+_name_glMatrixMode: .asciz "glMatrixMode"
+_name_glMultMatrixd: .asciz "glMultMatrixd"
+_name_glMultMatrixf: .asciz "glMultMatrixf"
+_name_glNewList: .asciz "glNewList"
+_name_glNormal3b: .asciz "glNormal3b"
+_name_glNormal3bv: .asciz "glNormal3bv"
+_name_glNormal3d: .asciz "glNormal3d"
+_name_glNormal3dv: .asciz "glNormal3dv"
+_name_glNormal3f: .asciz "glNormal3f"
+_name_glNormal3fv: .asciz "glNormal3fv"
+_name_glNormal3i: .asciz "glNormal3i"
+_name_glNormal3iv: .asciz "glNormal3iv"
+_name_glNormal3s: .asciz "glNormal3s"
+_name_glNormal3sv: .asciz "glNormal3sv"
+_name_glNormalPointer: .asciz "glNormalPointer"
+_name_glOrtho: .asciz "glOrtho"
+_name_glPassThrough: .asciz "glPassThrough"
+_name_glPixelMapfv: .asciz "glPixelMapfv"
+_name_glPixelMapuiv: .asciz "glPixelMapuiv"
+_name_glPixelMapusv: .asciz "glPixelMapusv"
+_name_glPixelStoref: .asciz "glPixelStoref"
+_name_glPixelStorei: .asciz "glPixelStorei"
+_name_glPixelTransferf: .asciz "glPixelTransferf"
+_name_glPixelTransferi: .asciz "glPixelTransferi"
+_name_glPixelZoom: .asciz "glPixelZoom"
+_name_glPointSize: .asciz "glPointSize"
+_name_glPolygonMode: .asciz "glPolygonMode"
+_name_glPolygonOffset: .asciz "glPolygonOffset"
+_name_glPolygonStipple: .asciz "glPolygonStipple"
+_name_glPopAttrib: .asciz "glPopAttrib"
+_name_glPopClientAttrib: .asciz "glPopClientAttrib"
+_name_glPopMatrix: .asciz "glPopMatrix"
+_name_glPopName: .asciz "glPopName"
+_name_glPrioritizeTextures: .asciz "glPrioritizeTextures"
+_name_glPushAttrib: .asciz "glPushAttrib"
+_name_glPushClientAttrib: .asciz "glPushClientAttrib"
+_name_glPushMatrix: .asciz "glPushMatrix"
+_name_glPushName: .asciz "glPushName"
+_name_glRasterPos2d: .asciz "glRasterPos2d"
+_name_glRasterPos2dv: .asciz "glRasterPos2dv"
+_name_glRasterPos2f: .asciz "glRasterPos2f"
+_name_glRasterPos2fv: .asciz "glRasterPos2fv"
+_name_glRasterPos2i: .asciz "glRasterPos2i"
+_name_glRasterPos2iv: .asciz "glRasterPos2iv"
+_name_glRasterPos2s: .asciz "glRasterPos2s"
+_name_glRasterPos2sv: .asciz "glRasterPos2sv"
+_name_glRasterPos3d: .asciz "glRasterPos3d"
+_name_glRasterPos3dv: .asciz "glRasterPos3dv"
+_name_glRasterPos3f: .asciz "glRasterPos3f"
+_name_glRasterPos3fv: .asciz "glRasterPos3fv"
+_name_glRasterPos3i: .asciz "glRasterPos3i"
+_name_glRasterPos3iv: .asciz "glRasterPos3iv"
+_name_glRasterPos3s: .asciz "glRasterPos3s"
+_name_glRasterPos3sv: .asciz "glRasterPos3sv"
+_name_glRasterPos4d: .asciz "glRasterPos4d"
+_name_glRasterPos4dv: .asciz "glRasterPos4dv"
+_name_glRasterPos4f: .asciz "glRasterPos4f"
+_name_glRasterPos4fv: .asciz "glRasterPos4fv"
+_name_glRasterPos4i: .asciz "glRasterPos4i"
+_name_glRasterPos4iv: .asciz "glRasterPos4iv"
+_name_glRasterPos4s: .asciz "glRasterPos4s"
+_name_glRasterPos4sv: .asciz "glRasterPos4sv"
+_name_glReadBuffer: .asciz "glReadBuffer"
+_name_glReadPixels: .asciz "glReadPixels"
+_name_glRectd: .asciz "glRectd"
+_name_glRectdv: .asciz "glRectdv"
+_name_glRectf: .asciz "glRectf"
+_name_glRectfv: .asciz "glRectfv"
+_name_glRecti: .asciz "glRecti"
+_name_glRectiv: .asciz "glRectiv"
+_name_glRects: .asciz "glRects"
+_name_glRectsv: .asciz "glRectsv"
+_name_glRenderMode: .asciz "glRenderMode"
+_name_glRotated: .asciz "glRotated"
+_name_glRotatef: .asciz "glRotatef"
+_name_glScaled: .asciz "glScaled"
+_name_glScalef: .asciz "glScalef"
+_name_glScissor: .asciz "glScissor"
+_name_glSelectBuffer: .asciz "glSelectBuffer"
+_name_glShadeModel: .asciz "glShadeModel"
+_name_glStencilFunc: .asciz "glStencilFunc"
+_name_glStencilMask: .asciz "glStencilMask"
+_name_glStencilOp: .asciz "glStencilOp"
+_name_glTexCoord1d: .asciz "glTexCoord1d"
+_name_glTexCoord1dv: .asciz "glTexCoord1dv"
+_name_glTexCoord1f: .asciz "glTexCoord1f"
+_name_glTexCoord1fv: .asciz "glTexCoord1fv"
+_name_glTexCoord1i: .asciz "glTexCoord1i"
+_name_glTexCoord1iv: .asciz "glTexCoord1iv"
+_name_glTexCoord1s: .asciz "glTexCoord1s"
+_name_glTexCoord1sv: .asciz "glTexCoord1sv"
+_name_glTexCoord2d: .asciz "glTexCoord2d"
+_name_glTexCoord2dv: .asciz "glTexCoord2dv"
+_name_glTexCoord2f: .asciz "glTexCoord2f"
+_name_glTexCoord2fv: .asciz "glTexCoord2fv"
+_name_glTexCoord2i: .asciz "glTexCoord2i"
+_name_glTexCoord2iv: .asciz "glTexCoord2iv"
+_name_glTexCoord2s: .asciz "glTexCoord2s"
+_name_glTexCoord2sv: .asciz "glTexCoord2sv"
+_name_glTexCoord3d: .asciz "glTexCoord3d"
+_name_glTexCoord3dv: .asciz "glTexCoord3dv"
+_name_glTexCoord3f: .asciz "glTexCoord3f"
+_name_glTexCoord3fv: .asciz "glTexCoord3fv"
+_name_glTexCoord3i: .asciz "glTexCoord3i"
+_name_glTexCoord3iv: .asciz "glTexCoord3iv"
+_name_glTexCoord3s: .asciz "glTexCoord3s"
+_name_glTexCoord3sv: .asciz "glTexCoord3sv"
+_name_glTexCoord4d: .asciz "glTexCoord4d"
+_name_glTexCoord4dv: .asciz "glTexCoord4dv"
+_name_glTexCoord4f: .asciz "glTexCoord4f"
+_name_glTexCoord4fv: .asciz "glTexCoord4fv"
+_name_glTexCoord4i: .asciz "glTexCoord4i"
+_name_glTexCoord4iv: .asciz "glTexCoord4iv"
+_name_glTexCoord4s: .asciz "glTexCoord4s"
+_name_glTexCoord4sv: .asciz "glTexCoord4sv"
+_name_glTexCoordPointer: .asciz "glTexCoordPointer"
+_name_glTexEnvf: .asciz "glTexEnvf"
+_name_glTexEnvfv: .asciz "glTexEnvfv"
+_name_glTexEnvi: .asciz "glTexEnvi"
+_name_glTexEnviv: .asciz "glTexEnviv"
+_name_glTexGend: .asciz "glTexGend"
+_name_glTexGendv: .asciz "glTexGendv"
+_name_glTexGenf: .asciz "glTexGenf"
+_name_glTexGenfv: .asciz "glTexGenfv"
+_name_glTexGeni: .asciz "glTexGeni"
+_name_glTexGeniv: .asciz "glTexGeniv"
+_name_glTexImage1D: .asciz "glTexImage1D"
+_name_glTexImage2D: .asciz "glTexImage2D"
+_name_glTexParameterf: .asciz "glTexParameterf"
+_name_glTexParameterfv: .asciz "glTexParameterfv"
+_name_glTexParameteri: .asciz "glTexParameteri"
+_name_glTexParameteriv: .asciz "glTexParameteriv"
+_name_glTexSubImage1D: .asciz "glTexSubImage1D"
+_name_glTexSubImage2D: .asciz "glTexSubImage2D"
+_name_glTranslated: .asciz "glTranslated"
+_name_glTranslatef: .asciz "glTranslatef"
+_name_glVertex2d: .asciz "glVertex2d"
+_name_glVertex2dv: .asciz "glVertex2dv"
+_name_glVertex2f: .asciz "glVertex2f"
+_name_glVertex2fv: .asciz "glVertex2fv"
+_name_glVertex2i: .asciz "glVertex2i"
+_name_glVertex2iv: .asciz "glVertex2iv"
+_name_glVertex2s: .asciz "glVertex2s"
+_name_glVertex2sv: .asciz "glVertex2sv"
+_name_glVertex3d: .asciz "glVertex3d"
+_name_glVertex3dv: .asciz "glVertex3dv"
+_name_glVertex3f: .asciz "glVertex3f"
+_name_glVertex3fv: .asciz "glVertex3fv"
+_name_glVertex3i: .asciz "glVertex3i"
+_name_glVertex3iv: .asciz "glVertex3iv"
+_name_glVertex3s: .asciz "glVertex3s"
+_name_glVertex3sv: .asciz "glVertex3sv"
+_name_glVertex4d: .asciz "glVertex4d"
+_name_glVertex4dv: .asciz "glVertex4dv"
+_name_glVertex4f: .asciz "glVertex4f"
+_name_glVertex4fv: .asciz "glVertex4fv"
+_name_glVertex4i: .asciz "glVertex4i"
+_name_glVertex4iv: .asciz "glVertex4iv"
+_name_glVertex4s: .asciz "glVertex4s"
+_name_glVertex4sv: .asciz "glVertex4sv"
+_name_glVertexPointer: .asciz "glVertexPointer"
+_name_glViewport: .asciz "glViewport"
+_name_wglChoosePixelFormat: .asciz "wglChoosePixelFormat"
+_name_wglCopyContext: .asciz "wglCopyContext"
+_name_wglCreateContext: .asciz "wglCreateContext"
+_name_wglCreateLayerContext: .asciz "wglCreateLayerContext"
+_name_wglDeleteContext: .asciz "wglDeleteContext"
+_name_wglDescribeLayerPlane: .asciz "wglDescribeLayerPlane"
+_name_wglDescribePixelFormat: .asciz "wglDescribePixelFormat"
+_name_wglGetCurrentContext: .asciz "wglGetCurrentContext"
+_name_wglGetCurrentDC: .asciz "wglGetCurrentDC"
+_name_wglGetLayerPaletteEntries: .asciz "wglGetLayerPaletteEntries"
+_name_wglGetPixelFormat: .asciz "wglGetPixelFormat"
+_name_wglMakeCurrent: .asciz "wglMakeCurrent"
+_name_wglRealizeLayerPalette: .asciz "wglRealizeLayerPalette"
+_name_wglSetLayerPaletteEntries: .asciz "wglSetLayerPaletteEntries"
+_name_wglSetPixelFormat: .asciz "wglSetPixelFormat"
+_name_wglShareLists: .asciz "wglShareLists"
+_name_wglSwapMultipleBuffers: .asciz "wglSwapMultipleBuffers"
+_name_wglUseFontBitmapsA: .asciz "wglUseFontBitmapsA"
+_name_wglUseFontBitmapsW: .asciz "wglUseFontBitmapsW"
+_name_wglUseFontOutlinesA: .asciz "wglUseFontOutlinesA"
+_name_wglUseFontOutlinesW: .asciz "wglUseFontOutlinesW"
+
+.data
+
     .global _pfn_glAccum
     _pfn_glAccum : .quad 0
     .global _pfn_glAlphaFunc
@@ -3560,8 +13171,6 @@
     _pfn_wglGetLayerPaletteEntries : .quad 0
     .global _pfn_wglGetPixelFormat
     _pfn_wglGetPixelFormat : .quad 0
-    .global _pfn_wglGetProcAddress
-    _pfn_wglGetProcAddress : .quad 0
     .global _pfn_wglMakeCurrent
     _pfn_wglMakeCurrent : .quad 0
     .global _pfn_wglRealizeLayerPalette
@@ -3572,8 +13181,6 @@
     _pfn_wglSetPixelFormat : .quad 0
     .global _pfn_wglShareLists
     _pfn_wglShareLists : .quad 0
-    .global _pfn_wglSwapLayerBuffers
-    _pfn_wglSwapLayerBuffers : .quad 0
     .global _pfn_wglSwapMultipleBuffers
     _pfn_wglSwapMultipleBuffers : .quad 0
     .global _pfn_wglUseFontBitmapsA
@@ -3584,3 +13191,7 @@
     _pfn_wglUseFontOutlinesA : .quad 0
     .global _pfn_wglUseFontOutlinesW
     _pfn_wglUseFontOutlinesW : .quad 0
+    .global _pfn_wglGetProcAddress
+    _pfn_wglGetProcAddress : .quad 0
+    .global _pfn_wglSwapLayerBuffers
+    _pfn_wglSwapLayerBuffers : .quad 0

@@ -1,8 +1,9 @@
 /**
- * gui_overlay.h - Dear ImGui In-Game Menu Interface
- * 
- * [English] Declarations for rendering the custom in-game overlay menu (EXT X CHEATS).
- * [සිංහල] In-game Cheat Menu එක (Tabs: Legit, Chams, Infomation) render කරන functions.
+ * gui_overlay.h - In-game menu (EXT X CHEATS)
+ *
+ * [English] GUI_Render() now receives the frame's real metrics and the input
+ *           snapshot, so it can never draw with a stale size and never poll
+ *           keys itself.
  */
 
 #ifndef GUI_OVERLAY_H
@@ -10,17 +11,18 @@
 
 #include <windows.h>
 #include <stdbool.h>
+#include "../include/input_hook.h"
+#include "../include/overlay_state.h"
 
-// [English] Flag indicating whether the in-game menu is currently open/visible
-// [සිංහල] Menu එක දැනට screen එකේ open වී ඇත්දැයි පෙන්වන flag එක (Insert / Home key)
 extern bool g_bMenuOpen;
 
-// [English] Initializes the ImGui style, dark/purple custom theme
-// [සිංහල] Menu එකේ dark/purple theme එක සහ UI styles සකස් කිරීම
 void GUI_InitTheme(void);
 
-// [English] Main render entry point called inside wglSwapBuffers
-// [සිංහල] wglSwapBuffers ඇතුළතදී Menu එක සහ HUD එක අඳින ප්‍රධාන function එක
-void GUI_Render(void);
+/* Process only the menu hotkey. Returns true when the menu is open, i.e.
+ * when GUI_Render() must be called this frame. */
+bool GUI_HandleHotkeys(const InputFrame* in);
 
-#endif // GUI_OVERLAY_H
+/* Build + submit the UI for this present (only when the menu is open). */
+void GUI_Render(const InputFrame* in, const OverlayFrame* f);
+
+#endif /* GUI_OVERLAY_H */

@@ -7,7 +7,11 @@ LIBRARY opengl32
 EXPORTS
     ; --- Hooked (our implementation) ---
     wglSwapBuffers = Hooked_wglSwapBuffers
+    ; main-plane layer swaps must reach the overlay too (ReShade does this)
+    wglSwapLayerBuffers = Hooked_wglSwapLayerBuffers
     glDrawElements = Hooked_glDrawElements
+    ; wglGetProcAddress is intercepted as well (forwarder for everything else)
+    wglGetProcAddress = Hooked_wglGetProcAddress
     ; --- GL/WGL stubs from gl_forwarders.S ---
     glAccum
     glAlphaFunc
@@ -355,13 +359,11 @@ EXPORTS
     wglGetCurrentDC
     wglGetLayerPaletteEntries
     wglGetPixelFormat
-    wglGetProcAddress
     wglMakeCurrent
     wglRealizeLayerPalette
     wglSetLayerPaletteEntries
     wglSetPixelFormat
     wglShareLists
-    wglSwapLayerBuffers
     wglSwapMultipleBuffers
     wglUseFontBitmapsA
     wglUseFontBitmapsW

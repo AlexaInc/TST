@@ -20,15 +20,22 @@ CheatConfig g_Config;
 
 void Config_InitDefaults(void)
 {
+    // [Overlay]
+    g_Config.menuKey                = VK_INSERT; // 0x2D - same as the original build
+    g_Config.bDebugMarker           = true;      // magenta marker; false when done
+    g_Config.diagMode               = 0;         // F10 cycles 0 -> 1 -> 2 (0 = no marker)
+    g_Config.fMouseSensitivity      = 1.0f;      // tune in the menu if the cursor races
+    g_Config.bOverlayUseBoundFBO    = true;      // ReShade behaviour: keep bound FBO
+
     // [Master Toggles]
-    g_Config.bVisibilityChams       = true;  // TRUE = Chams startup-edi ON (menu natiwa)
+    g_Config.bVisibilityChams       = false; // OFF by default: the DLL must not touch the scene until you enable it
     g_Config.bVisibleColorOverride  = false; // false = Normal textures in front of wall
 
     // [Behind Wall - Highlight]
-    g_Config.bBehindWallHighlight   = true;  // Switch 1: Solid Fill (Highlight)
+    g_Config.bBehindWallHighlight   = false; // Switch 1: Solid Fill (Highlight)
 
     // [Behind Wall - Photoshop-Style Stroke & Glow]
-    g_Config.bBehindWallStroke      = true;  // Switch 2: Stroke / Glow Enable Switch
+    g_Config.bBehindWallStroke      = false; // Switch 2: Stroke / Glow Enable Switch
     g_Config.glowMode               = GLOW_OUTER; // Default: Outer Glow
     g_Config.fStrokeSize            = 2.5f;  // Default line width: 2.5px
     g_Config.fGlowIntensity         = 1.0f;  // Default glow intensity: 100%

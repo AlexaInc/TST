@@ -1,12 +1,24 @@
 /**
- * gl_forwarders.c - Init only (asm stubs in gl_forwarders.S)
- * [English] GL_ForwardersInit() fills the _pfn_xxx pointer table.
- * [?????] .S file eke asm stubs, me file eke GetProcAddress init.
+ * gl_forwarders.c - forwarder initialisation + lazy binding
+ *
+ * [English] GL_ForwardersInit() fills the whole pointer table at once.
+ *           GL_LazyBind() is what the assembly stubs call when a slot is still
+ *           empty: it binds the table (once) and then resolves the single name
+ *           that was asked for. This is what makes the proxy work even if
+ *           DllMain never ran our initialisation - which is the only safe
+ *           option inside a DLL named opengl32.dll (loader-lock).
+ *
+ * [සිංහල] GL_ForwardersInit() එකෙන් table එක පිරෙනවා. Slot එකක් හිස් නම්
+ *         asm stub එකෙන් GL_LazyBind() කැඳවනවා - ඒකෙන් ලෑස්ති වෙලා
+ *         අවශ්‍ය function එක විතරක් resolve කරනවා.
  */
+
 #include <windows.h>
 #include "../include/gl_forwarders.h"
+#include "../include/opengl_hooks.h"
+#include "../include/gl_real.h"
 
-extern HMODULE g_hOriginalDll;
+/* Fills every slot. Called by OpenGL_InitHooks(). */
 
 /* External asm pointer table declared in gl_forwarders.S */
 extern void* _pfn_glAccum;
@@ -728,4 +740,39 @@ void GL_ForwardersInit(HMODULE hReal)
     _pfn_wglUseFontBitmapsW = (void*)GetProcAddress(hReal, "wglUseFontBitmapsW");
     _pfn_wglUseFontOutlinesA = (void*)GetProcAddress(hReal, "wglUseFontOutlinesA");
     _pfn_wglUseFontOutlinesW = (void*)GetProcAddress(hReal, "wglUseFontOutlinesW");
+}
+
+
+/* ------------------------------------------------------------------------- */
+/* Lazy binding used by the assembly stubs                                    */
+/* ------------------------------------------------------------------------- */
+/* `slot` is the _pfn_xxx cell, `name` the exported GL/WGL name. Returning the
+ * resolved pointer lets the stub tail-jump to it with the original arguments
+ * intact (the stub preserved rcx/rdx/r8/r9 + xmm0-3 around this call). */
+void* GL_LazyBind(void** slot, const char* name)
+{
+    if (!slot || !name) return NULL;
+    if (*slot) return *slot;
+
+    /* Re-entrancy guard: a GL call made from inside our own init must not
+     * spin here forever. */
+    static volatile LONG busy = 0;
+    if (InterlockedCompareExchange(&busy, 1, 0) != 0)
+        return *slot;
+
+    /* Bind the whole table on first use (idempotent). */
+    OpenGL_InitHooks();
+
+    if (!*slot)
+    {
+        void* p = GL_GetRealProc(name);
+        /* wglGetProcAddress sometimes needs a current context; retry once
+         * after the table is up. */
+        if (!p) p = GL_GetRealProc(name);
+        *slot = p;
+    }
+
+    void* result = *slot;
+    InterlockedExchange(&busy, 0);
+    return result;
 }
